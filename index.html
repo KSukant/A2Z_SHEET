@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberDSA — Futuristic Exam-Aware Timetable Engine</title>
+  <!-- Google Fonts: Orbitron for HUD, Outfit for UI, JetBrains Mono for Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="cyber-theme">
+  <!-- INTERACTIVE 3D GALAXY STARFIELD CANVAS BACKGROUND -->
+  <div id="galaxyBackground">
+    <canvas id="galaxyCanvas"></canvas>
+    <div class="galaxy-vignette"></div>
+    <div class="cyber-grid-overlay"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- TOP CYBER HEADER NAV -->
+    <header class="cyber-header card-hud">
+      <div class="logo-area">
+        <div class="cyber-logo-icon">
+          <i class="fa-solid fa-microchip"></i>
+          <span class="pulse-ring"></span>
+        </div>
+        <div>
+          <h1 class="hud-title">CYBER<span class="neon-cyan">DSA</span> <span class="neon-purple">ENGINE</span></h1>
+          <p class="hud-subtitle">Quantum Timetable Planner & Multi-Sheet Tracker</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- UNDO ACTION BUTTON IN HEADER -->
+        <button class="cyber-btn btn-undo" id="btnUndoHeader" title="Undo Last Action (Ctrl+Z)" disabled>
+          <i class="fa-solid fa-rotate-left"></i> <span>Undo</span> <kbd>Ctrl+Z</kbd>
+        </button>
+
+        <button class="cyber-btn btn-glass" id="btnExportData">
+          <i class="fa-solid fa-file-export"></i> <span>Export JSON</span>
+        </button>
+
+        <button class="cyber-btn btn-glass" id="btnExamConfig">
+          <i class="fa-solid fa-sliders"></i> <span>Exam Rules</span>
+        </button>
+
+        <button class="cyber-btn btn-danger" id="btnResetProgress">
+          <i class="fa-solid fa-power-off"></i> <span>Reset</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- EXAM PACING CONFIG MODAL PANEL -->
+    <section class="config-drawer card-hud hidden" id="configDrawer">
+      <div class="drawer-header">
+        <h2><i class="fa-solid fa-terminal"></i> EXAM PACING & SCHEDULER MATRIX</h2>
+        <button class="icon-btn" id="btnCloseConfig"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="config-grid">
+        <div class="config-group">
+          <label for="startDate"><i class="fa-regular fa-calendar"></i> START DATE</label>
+          <input type="date" id="startDate" class="cyber-input">
+        </div>
+        <div class="config-group">
+          <label for="caExams"><i class="fa-solid fa-ban"></i> CA EXAMS (0 PROBLEMS/DAY)</label>
+          <input type="text" id="caExams" class="cyber-input" placeholder="YYYY-MM-DD, YYYY-MM-DD">
+          <span class="field-hint">Auto-reduces workload to 2 problems/day 1 week prior</span>
+        </div>
+        <div class="config-group">
+          <label for="finalExams"><i class="fa-solid fa-graduation-cap"></i> FINAL SEM EXAMS (1 PROBLEM/DAY)</label>
+          <input type="text" id="finalExams" class="cyber-input" placeholder="Nov 19-24, Nov 27-Dec 15">
+          <span class="field-hint">Light academic pace during end-semester exams</span>
+        </div>
+      </div>
+
+      <div class="pacing-rules-info">
+        <h3><i class="fa-solid fa-shield-halved"></i> ACTIVE WORKLOAD RULES:</h3>
+        <div class="rules-pills">
+          <span class="cyber-pill pill-cyan"><i class="fa-solid fa-bolt"></i> Standard Day: 4 Problems</span>
+          <span class="cyber-pill pill-amber"><i class="fa-solid fa-clock-rotate-left"></i> Pre-Exam Week: 2 Problems</span>
+          <span class="cyber-pill pill-rose"><i class="fa-solid fa-ban"></i> CA Exam Day: 0 Problems</span>
+          <span class="cyber-pill pill-purple"><i class="fa-solid fa-book-open"></i> Final Sem Exam: 1 Problem</span>
+        </div>
+      </div>
+
+      <div class="drawer-footer">
+        <button class="cyber-btn btn-neon" id="btnApplyConfig">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> RECALCULATE MATRIX
+        </button>
+      </div>
+    </section>
+
+    <!-- FUTURISTIC CYBER HUD METRICS DASHBOARD -->
+    <section class="hud-metrics-grid">
+      <!-- HUD CARD 1: PROGRESS RING -->
+      <div class="hud-card card-hud">
+        <div class="hud-card-header">
+          <span class="hud-label"><i class="fa-solid fa-chart-pie"></i> OVERALL COMPLETION</span>
+          <span class="hud-tag neon-cyan-tag" id="percentBadge">0%</span>
+        </div>
+        <div class="hud-card-body">
+          <div class="hud-stat-value"><span id="completedCount">0</span> <span class="dim-text">/</span> <span id="totalCount">0</span></div>
+          <div class="cyber-progress-track">
+            <div class="cyber-progress-fill" id="progressBarFill"></div>
+            <div class="cyber-progress-glow"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HUD CARD 2: ESTIMATED END DATE -->
+      <div class="hud-card card-hud">
+        <div class="hud-card-header">
+          <span class="hud-label"><i class="fa-solid fa-calendar-check"></i> TARGET COMPLETION</span>
+          <span class="hud-tag neon-purple-tag">SCHEDULE</span>
+        </div>
+        <div class="hud-card-body">
+          <div class="hud-stat-value neon-purple-text" id="estimatedEndDate">Calculating...</div>
+          <div class="hud-subtext" id="totalDaysSpan">-- Days total</div>
+        </div>
+      </div>
+
+      <!-- HUD CARD 3: DIFFICULTY HUD -->
+      <div class="hud-card card-hud">
+        <div class="hud-card-header">
+          <span class="hud-label"><i class="fa-solid fa-layer-group"></i> DIFFICULTY METRICS</span>
+          <span class="hud-tag neon-emerald-tag">DISTRIBUTION</span>
+        </div>
+        <div class="hud-card-body">
+          <div class="difficulty-hud-bars">
+            <div class="diff-hud-item">
+              <span class="diff-name easy-color">EASY</span>
+              <div class="diff-bar-bg"><div class="diff-bar-fill easy-fill" id="easyBar"></div></div>
+              <strong id="easyCount">0</strong>
+            </div>
+            <div class="diff-hud-item">
+              <span class="diff-name medium-color">MEDIUM</span>
+              <div class="diff-bar-bg"><div class="diff-bar-fill medium-fill" id="mediumBar"></div></div>
+              <strong id="mediumCount">0</strong>
+            </div>
+            <div class="diff-hud-item">
+              <span class="diff-name hard-color">HARD</span>
+              <div class="diff-bar-bg"><div class="diff-bar-fill hard-fill" id="hardBar"></div></div>
+              <strong id="hardCount">0</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHEET SELECTOR TABS & SEARCH CONTROLS -->
+    <section class="cyber-controls-bar card-hud">
+      <!-- SHEET SWITCHER TABS -->
+      <div class="sheet-tabs-container">
+        <button class="sheet-tab active" data-sheet="STRIVER">
+          <i class="fa-solid fa-bolt"></i> <span>Striver A2Z Sheet</span> <span class="tab-badge">455</span>
+        </button>
+        <button class="sheet-tab" data-sheet="CUSTOM">
+          <i class="fa-solid fa-rocket"></i> <span>My Sheet (nbs25p6v)</span> <span class="tab-badge">360</span>
+        </button>
+      </div>
+
+      <div class="cyber-search-box">
+        <i class="fa-solid fa-terminal"></i>
+        <input type="text" id="searchInput" placeholder="Search problem, topic, or subtopic...">
+      </div>
+
+      <div class="filter-controls-group">
+        <select id="topicFilter" class="cyber-select">
+          <option value="ALL">All Steps / Topics</option>
+        </select>
+
+        <select id="subtopicFilter" class="cyber-select">
+          <option value="ALL">All Subtopics</option>
+        </select>
+
+        <select id="difficultyFilter" class="cyber-select">
+          <option value="ALL">All Difficulties</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+
+        <select id="statusFilter" class="cyber-select">
+          <option value="ALL">All Status</option>
+          <option value="COMPLETED">Completed</option>
+          <option value="PENDING">Pending</option>
+        </select>
+
+        <div class="view-toggle">
+          <button class="toggle-btn active" id="viewTimetableBtn" title="Timetable View">
+            <i class="fa-solid fa-calendar-day"></i> Timetable
+          </button>
+          <button class="toggle-btn" id="viewTopicBtn" title="Step View">
+            <i class="fa-solid fa-layer-group"></i> By Step
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+      <div id="timetableContainer" class="timetable-wrapper">
+        <!-- Rendered dynamically -->
+      </div>
+    </main>
+  </div>
+
+  <!-- FLOATING UNDO ACTION BAR (BOTTOM RIGHT) -->
+  <div class="floating-undo-toast hidden" id="undoToast">
+    <div class="toast-content">
+      <i class="fa-solid fa-circle-check toast-icon"></i>
+      <span id="toastMessage">Action recorded</span>
+    </div>
+    <button class="toast-undo-btn" id="btnToastUndo">
+      <i class="fa-solid fa-rotate-left"></i> UNDO
+    </button>
+    <div class="toast-progress-line" id="toastProgressLine"></div>
+  </div>
+
+  <!-- 11-SECTION STRUCTURED SOLUTION MODAL -->
+  <div class="modal-backdrop hidden" id="explanationModal">
+    <div class="modal-card card-hud modal-lg">
+      <div class="modal-header">
+        <div>
+          <h3 id="modalProblemTitle" class="hud-title">Problem Title</h3>
+          <div class="modal-breadcrumb" id="modalBreadcrumbText">
+            <i class="fa-solid fa-folder-tree"></i> Step ➔ Subtopic
+          </div>
+        </div>
+        <button class="icon-btn" id="btnCloseModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-meta">
+          <span class="cyber-pill pill-cyan" id="modalTopicBadge">Step</span>
+          <span class="cyber-pill pill-purple" id="modalSubtopicBadge">Subtopic</span>
+          <span class="badge" id="modalDiffBadge">Easy</span>
+        </div>
+
+        <!-- DYNAMIC STRUCTURED EXPLANATION CONTAINER -->
+        <div class="explanation-container" id="modalExplanationContainer">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div class="modal-links">
+          <a id="modalLeetcodeLink" href="#" target="_blank" class="cyber-btn btn-leetcode">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Solve on LeetCode
+          </a>
+          <a id="modalYoutubeLink" href="#" target="_blank" class="cyber-btn btn-youtube">
+            <i class="fa-brands fa-youtube"></i> Video Tutorial
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="galaxy.js"></script>
+  <script src="data.js"></script>
+  <script src="custom_sheet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "striver-a2z-dsa-planner",
+  "version": "2.0.0",
+  "description": "Comprehensive Striver A2Z DSA Timetable Planner & LeetCode Tracker with Exam-Aware Scheduler",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}
