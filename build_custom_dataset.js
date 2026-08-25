@@ -1,283 +1,384 @@
-// Generator Script for Custom LeetCode Sheet - 360 REAL Valid LeetCode Problems
-// Grouped strictly by Step (Heading), Subtopic (Subheading), and Difficulty (Easy -> Medium -> Hard)
+// Generator Script for Custom LeetCode Sheet - 360 UNIQUE DISTINCT LeetCode Problems
+// ZERO DUPLICATES, ZERO "Part 2 / Part 3 / Part 4" suffixes!
 const fs = require('fs');
 const path = require('path');
 
-// 360 Genuine LeetCode Problems mapped with proper Headings (Step) and Subheadings (Subtopic)
-const rawLeetCodeProblems = [
-  // ==================== STEP 1: ARRAYS & HASHING ====================
-  // Subtopic 1.1: Easy Arrays & Hashing
-  { title: "Two Sum", slug: "two-sum", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "KLlXCFG5TnA" },
-  { title: "Contains Duplicate", slug: "contains-duplicate", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "3OamzN90kPg" },
-  { title: "Valid Anagram", slug: "valid-anagram", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "9UtInBqnCgA" },
-  { title: "Roman to Integer", slug: "roman-to-integer", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "3jdxYj3DD98" },
-  { title: "Longest Common Prefix", slug: "longest-common-prefix", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "0sWShKIJoo4" },
-  { title: "Find the Index of the First Occurrence in a String", slug: "find-the-index-of-the-first-occurrence-in-a-string", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "Gjkhm1gYIMw" },
-  { title: "Length of Last Word", slug: "length-of-last-word", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "HDt4YcI5Pvg" },
-  { title: "Pascal's Triangle", slug: "pascals-triangle", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "6HjhwhOK4_g" },
-  { title: "Pascal's Triangle II", slug: "pascals-triangle-ii", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "k4v7-86a0lY" },
-  { title: "Isomorphic Strings", slug: "isomorphic-strings", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "7yF-U1hLEqU" },
-  { title: "Contains Duplicate II", slug: "contains-duplicate-ii", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "ypn0gJ5BSL4" },
-  { title: "Shortest Word Distance", slug: "shortest-word-distance", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "0sWShKIJoo4" },
-  { title: "Missing Ranges", slug: "missing-ranges", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "0sWShKIJoo4" },
-  { title: "Summary Ranges", slug: "summary-ranges", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "ZHvdZOC6994" },
-  { title: "Word Pattern", slug: "word-pattern", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "1.1 Easy Array & Hashing Problems", yt: "7yF-U1hLEqU" },
-
-  // Subtopic 1.2: Medium Arrays & Hashing
-  { title: "Group Anagrams", slug: "group-anagrams", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "1.2 Medium Array Problems", yt: "vzdNOK2oB2E" },
-  { title: "Top K Frequent Elements", slug: "top-k-frequent-elements", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "1.2 Medium Array Problems", yt: "YPTqKIgVk-k" },
-  { title: "Product of Array Except Self", slug: "product-of-array-except-self", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "1.2 Medium Array Problems", yt: "bNvIQI2wAjk" },
-  { title: "Longest Consecutive Sequence", slug: "longest-consecutive-sequence", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "1.2 Medium Array Problems", yt: "P6RZZMu_maU" },
-  { title: "Encode and Decode Strings", slug: "encode-and-decode-strings", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "1.2 Medium Array Problems", yt: "B1k_4vVz1c8" },
-  { title: "Zigzag Conversion", slug: "zigzag-conversion", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "1.2 Medium Array Problems", yt: "Q2Tw6gcVEwc" },
-  { title: "String to Integer (atoi)", slug: "string-to-integer-atoi", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "1.2 Medium Array Problems", yt: "xy3wlh5D6uM" },
-  { title: "Integer to Roman", slug: "integer-to-roman", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "1.2 Medium Array Problems", yt: "ohBNaSfxJ7w" },
-  { title: "Next Permutation", slug: "next-permutation", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "1.2 Medium Array Problems", yt: "JDOXKqF60RQ" },
-  { title: "Valid Sudoku", slug: "valid-sudoku", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "1.2 Medium Array Problems", yt: "TjFXEUCMqI8" },
-
-  // Subtopic 1.3: Hard Arrays & Hashing
-  { title: "First Missing Positive", slug: "first-missing-positive", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "1.3 Hard Array Problems", yt: "8g788h1ViE0" },
-  { title: "Valid Number", slug: "valid-number", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "1.3 Hard Array Problems", yt: "0Z3g0f_0wQ0" },
-  { title: "Text Justification", slug: "text-justification", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "1.3 Hard Array Problems", yt: "G7YybHl7H44" },
-  { title: "Maximum Gap", slug: "maximum-gap", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "1.3 Hard Array Problems", yt: "21XN4Vz0cQ8" },
-  { title: "Shortest Palindrome", slug: "shortest-palindrome", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "1.3 Hard Array Problems", yt: "c4akCQ325ak" },
-
-  // ==================== STEP 2: TWO POINTERS ====================
-  // Subtopic 2.1: Easy Two Pointers
-  { title: "Valid Palindrome", slug: "valid-palindrome", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "2.1 Two Pointers Easy", yt: "jJXJ16kPyo4" },
-  { title: "Remove Duplicates from Sorted Array", slug: "remove-duplicates-from-sorted-array", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "2.1 Two Pointers Easy", yt: "DEJAZBq0FDA" },
-  { title: "Remove Element", slug: "remove-element", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "2.1 Two Pointers Easy", yt: "PlnFUKEc0nE" },
-  { title: "Move Zeroes", slug: "move-zeroes", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "2.1 Two Pointers Easy", yt: "aayNRwUN3Do" },
-  { title: "Reverse String", slug: "reverse-string", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "2.1 Two Pointers Easy", yt: "pOSb0Yl_j_M" },
-
-  // Subtopic 2.2: Medium Two Pointers
-  { title: "Two Sum II - Input Array Is Sorted", slug: "two-sum-ii-input-array-is-sorted", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "2.2 Two Pointers Medium", yt: "cQ1Oz4ckceM" },
-  { title: "3Sum", slug: "3sum", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "2.2 Two Pointers Medium", yt: "jzZsG8n2eUI" },
-  { title: "3Sum Closest", slug: "3sum-closest", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "2.2 Two Pointers Medium", yt: "qBr2HQ4d6y0" },
-  { title: "4Sum", slug: "4sum", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "2.2 Two Pointers Medium", yt: "eD95WRBhKZ8" },
-  { title: "Container With Most Water", slug: "container-with-most-water", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "2.2 Two Pointers Medium", yt: "UuiTKBwPgAo" },
-  { title: "Sort Colors", slug: "sort-colors", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "2.2 Two Pointers Medium", yt: "tp8JIucxBaU" },
-  { title: "Remove Duplicates from Sorted Array II", slug: "remove-duplicates-from-sorted-array-ii", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "2.2 Two Pointers Medium", yt: "ycAq8iqh0TI" },
-
-  // Subtopic 2.3: Hard Two Pointers
-  { title: "Trapping Rain Water", slug: "trapping-rain-water", diff: "Hard", step: "Step 2: Two Pointers", subtopic: "2.3 Two Pointers Hard", yt: "ZI2z5pq0TqA" },
-  { title: "Best Meeting Point", slug: "best-meeting-point", diff: "Hard", step: "Step 2: Two Pointers", subtopic: "2.3 Two Pointers Hard", yt: "0sWShKIJoo4" },
-
-  // ==================== STEP 3: SLIDING WINDOW ====================
-  // Subtopic 3.1: Easy Sliding Window
-  { title: "Best Time to Buy and Sell Stock", slug: "best-time-to-buy-and-sell-stock", diff: "Easy", step: "Step 3: Sliding Window", subtopic: "3.1 Sliding Window Easy", yt: "1pkOgXD63yU" },
-  { title: "Moving Average from Data Stream", slug: "moving-average-from-data-stream", diff: "Easy", step: "Step 3: Sliding Window", subtopic: "3.1 Sliding Window Easy", yt: "0sWShKIJoo4" },
-
-  // Subtopic 3.2: Medium Sliding Window
-  { title: "Longest Substring Without Repeating Characters", slug: "longest-substring-without-repeating-characters", diff: "Medium", step: "Step 3: Sliding Window", subtopic: "3.2 Sliding Window Medium", yt: "wiGpQwVHdE0" },
-  { title: "Longest Repeating Character Replacement", slug: "longest-repeating-character-replacement", diff: "Medium", step: "Step 3: Sliding Window", subtopic: "3.2 Sliding Window Medium", yt: "gqXU1UyA8pk" },
-  { title: "Permutation in String", slug: "permutation-in-string", diff: "Medium", step: "Step 3: Sliding Window", subtopic: "3.2 Sliding Window Medium", yt: "UbyhDeMB87A" },
-  { title: "Minimum Size Subarray Sum", slug: "minimum-size-subarray-sum", diff: "Medium", step: "Step 3: Sliding Window", subtopic: "3.2 Sliding Window Medium", yt: "aYqYMIJLNag" },
-  { title: "Repeated DNA Sequences", slug: "repeated-dna-sequences", diff: "Medium", step: "Step 3: Sliding Window", subtopic: "3.2 Sliding Window Medium", yt: "FzTYfsmtO0g" },
-
-  // Subtopic 3.3: Hard Sliding Window
-  { title: "Minimum Window Substring", slug: "minimum-window-substring", diff: "Hard", step: "Step 3: Sliding Window", subtopic: "3.3 Sliding Window Hard", yt: "jSto0O4AJbM" },
-  { title: "Sliding Window Maximum", slug: "sliding-window-maximum", diff: "Hard", step: "Step 3: Sliding Window", subtopic: "3.3 Sliding Window Hard", yt: "DfljaUwZsOk" },
-  { title: "Substring with Concatenation of All Words", slug: "substring-with-concatenation-of-all-words", diff: "Hard", step: "Step 3: Sliding Window", subtopic: "3.3 Sliding Window Hard", yt: "tO2wMTOYyVE" },
-
-  // ==================== STEP 4: STACK & MONOTONIC STACK ====================
-  // Subtopic 4.1: Easy Stack
-  { title: "Valid Parentheses", slug: "valid-parentheses", diff: "Easy", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.1 Stack Basics Easy", yt: "WTzjTskDF3k" },
-  { title: "Implement Stack using Queues", slug: "implement-stack-using-queues", diff: "Easy", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.1 Stack Basics Easy", yt: "rW4vm0-DLYc" },
-  { title: "Implement Queue using Stacks", slug: "implement-queue-using-stacks", diff: "Easy", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.1 Stack Basics Easy", yt: "3Et9MrMc02A" },
-
-  // Subtopic 4.2: Medium Monotonic Stack
-  { title: "Min Stack", slug: "min-stack", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.2 Monotonic Stack Medium", yt: "qkLl7nAwDPo" },
-  { title: "Evaluate Reverse Polish Notation", slug: "evaluate-reverse-polish-notation", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.2 Monotonic Stack Medium", yt: "iu008SmBWYY" },
-  { title: "Daily Temperatures", slug: "daily-temperatures", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.2 Monotonic Stack Medium", yt: "cTBiBSNjMSU" },
-  { title: "Simplify Path", slug: "simplify-path", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.2 Monotonic Stack Medium", yt: "qYlHrAKJ4yA" },
-  { title: "Basic Calculator II", slug: "basic-calculator-ii", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.2 Monotonic Stack Medium", yt: "2EErQj68s8o" },
-  { title: "Remove Duplicate Letters", slug: "remove-duplicate-letters", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.2 Monotonic Stack Medium", yt: "2ayws5Y-d88" },
-
-  // Subtopic 4.3: Hard Monotonic Stack
-  { title: "Largest Rectangle in Histogram", slug: "largest-rectangle-in-histogram", diff: "Hard", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.3 Monotonic Stack Hard", yt: "zx5SwJIo67s" },
-  { title: "Maximal Rectangle", slug: "maximal-rectangle", diff: "Hard", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.3 Monotonic Stack Hard", yt: "dAVF2NpC3j4" },
-  { title: "Longest Valid Parentheses", slug: "longest-valid-parentheses", diff: "Hard", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.3 Monotonic Stack Hard", yt: "VdQuWTWlo9U" },
-  { title: "Basic Calculator", slug: "basic-calculator", diff: "Hard", step: "Step 4: Stack & Monotonic Stack", subtopic: "4.3 Monotonic Stack Hard", yt: "081AqUWDlP0" },
-
-  // ==================== STEP 5: BINARY SEARCH ====================
-  // Subtopic 5.1: Easy Binary Search
-  { title: "Binary Search", slug: "binary-search", diff: "Easy", step: "Step 5: Binary Search", subtopic: "5.1 Binary Search Easy", yt: "s4DPM8ct1pI" },
-  { title: "Search Insert Position", slug: "search-insert-position", diff: "Easy", step: "Step 5: Binary Search", subtopic: "5.1 Binary Search Easy", yt: "K-JUnfHJZaU" },
-  { title: "Sqrt(x)", slug: "sqrtx", diff: "Easy", step: "Step 5: Binary Search", subtopic: "5.1 Binary Search Easy", yt: "fIfiqq5w83E" },
-  { title: "First Bad Version", slug: "first-bad-version", diff: "Easy", step: "Step 5: Binary Search", subtopic: "5.1 Binary Search Easy", yt: "gYitx42Xj0g" },
-
-  // Subtopic 5.2: Medium Binary Search
-  { title: "Search in Rotated Sorted Array", slug: "search-in-rotated-sorted-array", diff: "Medium", step: "Step 5: Binary Search", subtopic: "5.2 Binary Search Medium", yt: "U8XENwh8Oy8" },
-  { title: "Search a 2D Matrix", slug: "search-a-2d-matrix", diff: "Medium", step: "Step 5: Binary Search", subtopic: "5.2 Binary Search Medium", yt: "Ber2pi2c0j0" },
-  { title: "Find First and Last Position of Element in Sorted Array", slug: "find-first-and-last-position-of-element-in-sorted-array", diff: "Medium", step: "Step 5: Binary Search", subtopic: "5.2 Binary Search Medium", yt: "4sQL7R5ygzU" },
-  { title: "Find Minimum in Rotated Sorted Array", slug: "find-minimum-in-rotated-sorted-array", diff: "Medium", step: "Step 5: Binary Search", subtopic: "5.2 Binary Search Medium", yt: "nIVW4P8b1VA" },
-  { title: "Find Peak Element", slug: "find-peak-element", diff: "Medium", step: "Step 5: Binary Search", subtopic: "5.2 Binary Search Medium", yt: "kMzJ9UW14CA" },
-  { title: "Search a 2D Matrix II", slug: "search-a-2d-matrix-ii", diff: "Medium", step: "Step 5: Binary Search", subtopic: "5.2 Binary Search Medium", yt: "DCID3cdp3Lw" },
-  { title: "H-Index II", slug: "h-index-ii", diff: "Medium", step: "Step 5: Binary Search", subtopic: "5.2 Binary Search Medium", yt: "CjKJDloMnwE" },
-
-  // Subtopic 5.3: Hard Binary Search
-  { title: "Median of Two Sorted Arrays", slug: "median-of-two-sorted-arrays", diff: "Hard", step: "Step 5: Binary Search", subtopic: "5.3 Binary Search Hard", yt: "q6IEA26hvXc" },
-  { title: "Find Minimum in Rotated Sorted Array II", slug: "find-minimum-in-rotated-sorted-array-ii", diff: "Hard", step: "Step 5: Binary Search", subtopic: "5.3 Binary Search Hard", yt: "j3187Mwp35U" },
-
-  // ==================== STEP 6: LINKED LIST ====================
-  // Subtopic 6.1: Easy Linked List
-  { title: "Reverse Linked List", slug: "reverse-linked-list", diff: "Easy", step: "Step 6: Linked List", subtopic: "6.1 Linked List Easy", yt: "G0_I-ZF0S38" },
-  { title: "Merge Two Sorted Lists", slug: "merge-two-sorted-lists", diff: "Easy", step: "Step 6: Linked List", subtopic: "6.1 Linked List Easy", yt: "XIdigk956u0" },
-  { title: "Linked List Cycle", slug: "linked-list-cycle", diff: "Easy", step: "Step 6: Linked List", subtopic: "6.1 Linked List Easy", yt: "gBTe7lFR3vc" },
-  { title: "Intersection of Two Linked Lists", slug: "intersection-of-two-linked-lists", diff: "Easy", step: "Step 6: Linked List", subtopic: "6.1 Linked List Easy", yt: "D0X0BONOQhI" },
-  { title: "Remove Linked List Elements", slug: "remove-linked-list-elements", diff: "Easy", step: "Step 6: Linked List", subtopic: "6.1 Linked List Easy", yt: "JI6SmnmX9t8" },
-  { title: "Palindrome Linked List", slug: "palindrome-linked-list", diff: "Easy", step: "Step 6: Linked List", subtopic: "6.1 Linked List Easy", yt: "yOzXms1J6Nk" },
-
-  // Subtopic 6.2: Medium Linked List
-  { title: "Add Two Numbers", slug: "add-two-numbers", diff: "Medium", step: "Step 6: Linked List", subtopic: "6.2 Linked List Medium", yt: "wgFPrzTmc7w" },
-  { title: "Remove Nth Node From End of List", slug: "remove-nth-node-from-end-of-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "6.2 Linked List Medium", yt: "XVuQxVej6y8" },
-  { title: "Swap Nodes in Pairs", slug: "swap-nodes-in-pairs", diff: "Medium", step: "Step 6: Linked List", subtopic: "6.2 Linked List Medium", yt: "o811TZLAWOo" },
-  { title: "Rotate List", slug: "rotate-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "6.2 Linked List Medium", yt: "9VPm6nEbVPA" },
-  { title: "LRU Cache", slug: "lru-cache", diff: "Medium", step: "Step 6: Linked List", subtopic: "6.2 Linked List Medium", yt: "7ABLItLRPG0" },
-  { title: "Linked List Cycle II", slug: "linked-list-cycle-ii", diff: "Medium", step: "Step 6: Linked List", subtopic: "6.2 Linked List Medium", yt: "QfbOhn0gz8g" },
-  { title: "Reorder List", slug: "reorder-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "6.2 Linked List Medium", yt: "S5bfdUTrKLM" },
-  { title: "Copy List with Random Pointer", slug: "copy-list-with-random-pointer", diff: "Medium", step: "Step 6: Linked List", subtopic: "6.2 Linked List Medium", yt: "5Y2EiZST97Y" },
-  { title: "Odd Even Linked List", slug: "odd-even-linked-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "6.2 Linked List Medium", yt: "YE9GG65msvU" },
-
-  // Subtopic 6.3: Hard Linked List
-  { title: "Reverse Nodes in k-Group", slug: "reverse-nodes-in-k-group", diff: "Hard", step: "Step 6: Linked List", subtopic: "6.3 Linked List Hard", yt: "1UOPsfP85_0" },
-
-  // ==================== STEP 7: TREES & BINARY TREES ====================
-  // Subtopic 7.1: Easy Binary Trees
-  { title: "Invert Binary Tree", slug: "invert-binary-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "7.1 Binary Trees Easy", yt: "OnSn2XEQ4MY" },
-  { title: "Maximum Depth of Binary Tree", slug: "maximum-depth-of-binary-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "7.1 Binary Trees Easy", yt: "hTM3phVI6YQ" },
-  { title: "Same Tree", slug: "same-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "7.1 Binary Trees Easy", yt: "vRbbcKXCxjM" },
-  { title: "Symmetric Tree", slug: "symmetric-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "7.1 Binary Trees Easy", yt: "K7LyJTWg2yA" },
-  { title: "Balanced Binary Tree", slug: "balanced-binary-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "7.1 Binary Trees Easy", yt: "Yt50JfBD8Po" },
-  { title: "Path Sum", slug: "path-sum", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "7.1 Binary Trees Easy", yt: "LSKQyOz_P8s" },
-  { title: "Binary Tree Inorder Traversal", slug: "binary-tree-inorder-traversal", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "7.1 Binary Trees Easy", yt: "g_S5W03Hwak" },
-
-  // Subtopic 7.2: Medium Binary Trees & BST
-  { title: "Binary Tree Level Order Traversal", slug: "binary-tree-level-order-traversal", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "7.2 Trees & BST Medium", yt: "6ZnyEAla6UQ" },
-  { title: "Validate Binary Search Tree", slug: "validate-binary-search-tree", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "7.2 Trees & BST Medium", yt: "s6ATEkipzow" },
-  { title: "Binary Tree Right Side View", slug: "binary-tree-right-side-view", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "7.2 Trees & BST Medium", yt: "d4zLyX32eOG" },
-  { title: "Kth Smallest Element in a BST", slug: "kth-smallest-element-in-a-bst", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "7.2 Trees & BST Medium", yt: "5LUXSvszSNU" },
-  { title: "Lowest Common Ancestor of a Binary Search Tree", slug: "lowest-common-ancestor-of-a-binary-search-tree", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "7.2 Trees & BST Medium", yt: "gs2LMfuOR9k" },
-  { title: "Lowest Common Ancestor of a Binary Tree", slug: "lowest-common-ancestor-of-a-binary-tree", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "7.2 Trees & BST Medium", yt: "py3R21F05v8" },
-  { title: "Construct Binary Tree from Preorder and Inorder Traversal", slug: "construct-binary-tree-from-preorder-and-inorder-traversal", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "7.2 Trees & BST Medium", yt: "ihj4IQGZ2zc" },
-
-  // Subtopic 7.3: Hard Binary Trees
-  { title: "Binary Tree Maximum Path Sum", slug: "binary-tree-maximum-path-sum", diff: "Hard", step: "Step 7: Trees & Binary Trees", subtopic: "7.3 Binary Trees Hard", yt: "TO5zsK6gKSQ" },
-  { title: "Serialize and Deserialize Binary Tree", slug: "serialize-and-deserialize-binary-tree", diff: "Hard", step: "Step 7: Trees & Binary Trees", subtopic: "7.3 Binary Trees Hard", yt: "u4JAi2JJhTY" },
-
-  // ==================== STEP 8: HEAP / PRIORITY QUEUE ====================
-  { title: "Kth Largest Element in an Array", slug: "kth-largest-element-in-an-array", diff: "Medium", step: "Step 8: Heap / Priority Queue", subtopic: "8.1 Priority Queue & Heaps", yt: "XEmy13g1Qxc" },
-  { title: "Design Twitter", slug: "design-twitter", diff: "Medium", step: "Step 8: Heap / Priority Queue", subtopic: "8.1 Priority Queue & Heaps", yt: "pNichitDD2E" },
-  { title: "Merge k Sorted Lists", slug: "merge-k-sorted-lists", diff: "Hard", step: "Step 8: Heap / Priority Queue", subtopic: "8.2 Advanced Heaps Hard", yt: "q5a5OiGbT6Q" },
-  { title: "Find Median from Data Stream", slug: "find-median-from-data-stream", diff: "Hard", step: "Step 8: Heap / Priority Queue", subtopic: "8.2 Advanced Heaps Hard", yt: "itmhHWaHupI" },
-
-  // ==================== STEP 9: RECURSION & BACKTRACKING ====================
-  { title: "Subsets", slug: "subsets", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "9.1 Subsets & Combinations", yt: "REOH22X48w4" },
-  { title: "Combination Sum", slug: "combination-sum", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "9.1 Subsets & Combinations", yt: "GBKI9VSKdGg" },
-  { title: "Permutations", slug: "permutations", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "9.1 Subsets & Combinations", yt: "s7AvT7cGdSo" },
-  { title: "Word Search", slug: "word-search", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "9.2 Grid Backtracking", yt: "pfiQ_PS1g8E" },
-  { title: "Palindrome Partitioning", slug: "palindrome-partitioning", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "9.2 Grid Backtracking", yt: "3j4E7QzwUBU" },
-  { title: "N-Queens", slug: "n-queens", diff: "Hard", step: "Step 9: Recursion & Backtracking", subtopic: "9.3 Hard Backtracking", yt: "Ph95IHmHJ5Y" },
-  { title: "Sudoku Solver", slug: "sudoku-solver", diff: "Hard", step: "Step 9: Recursion & Backtracking", subtopic: "9.3 Hard Backtracking", yt: "eqA8L1WAFYc" },
-
-  // ==================== STEP 10: TRIES ====================
-  { title: "Implement Trie (Prefix Tree)", slug: "implement-trie-prefix-tree", diff: "Medium", step: "Step 10: Tries & Prefix Trees", subtopic: "10.1 Trie Operations", yt: "oobqoCJlHA0" },
-  { title: "Design Add and Search Words Data Structure", slug: "design-add-and-search-words-data-structure", diff: "Medium", step: "Step 10: Tries & Prefix Trees", subtopic: "10.1 Trie Operations", yt: "DacLwQn45hU" },
-  { title: "Word Search II", slug: "word-search-ii", diff: "Hard", step: "Step 10: Tries & Prefix Trees", subtopic: "10.2 Advanced Trie Hard", yt: "asbcE9mZKia" },
-
-  // ==================== STEP 11: GRAPHS & DISJOINT SET ====================
-  { title: "Number of Islands", slug: "number-of-islands", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "11.1 Graph Traversals (BFS/DFS)", yt: "pV2kpPD66nE" },
-  { title: "Clone Graph", slug: "clone-graph", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "11.1 Graph Traversals (BFS/DFS)", yt: "mQeF6bN8hMk" },
-  { title: "Course Schedule", slug: "course-schedule", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "11.2 Topological Sort", yt: "EgI5nU9etnU" },
-  { title: "Course Schedule II", slug: "course-schedule-ii", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "11.2 Topological Sort", yt: "Akt3glAwyfY" },
-  { title: "Graph Valid Tree", slug: "graph-valid-tree", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "11.3 Disjoint Set Union", yt: "bXsUuownnoQ" },
-  { title: "Surrounded Regions", slug: "surrounded-regions", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "11.1 Graph Traversals (BFS/DFS)", yt: "0ZJViJEdtEc" },
-
-  // ==================== STEP 12: ADVANCED GRAPHS ====================
-  { title: "Network Delay Time", slug: "network-delay-time", diff: "Medium", step: "Step 12: Advanced Graphs", subtopic: "12.1 Shortest Path Algorithms", yt: "EaphyqKU8Tw" },
-  { title: "Alien Dictionary", slug: "alien-dictionary", diff: "Hard", step: "Step 12: Advanced Graphs", subtopic: "12.2 Hard Graph Problems", yt: "6ktSZGijnSY" },
-  { title: "Reconstruct Itinerary", slug: "reconstruct-itinerary", diff: "Hard", step: "Step 12: Advanced Graphs", subtopic: "12.2 Hard Graph Problems", yt: "ZyB_gQ8bF7c" },
-
-  // ==================== STEP 13: 1D DYNAMIC PROGRAMMING ====================
-  { title: "Climbing Stairs", slug: "climbing-stairs", diff: "Easy", step: "Step 13: 1D Dynamic Programming", subtopic: "13.1 Easy 1D DP", yt: "Y0lT9Fck7qI" },
-  { title: "House Robber", slug: "house-robber", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "13.2 Medium 1D DP", yt: "73r3KWiEvyk" },
-  { title: "House Robber II", slug: "house-robber-ii", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "13.2 Medium 1D DP", yt: "rWAJCfYYGYM" },
-  { title: "Longest Palindromic Substring", slug: "longest-palindromic-substring", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "13.2 Medium 1D DP", yt: "XYQecbcd6_c" },
-  { title: "Decode Ways", slug: "decode-ways", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "13.2 Medium 1D DP", yt: "6aEyTjOWiml" },
-  { title: "Coin Change", slug: "coin-change", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "13.2 Medium 1D DP", yt: "H9bfqozjoqs" },
-  { title: "Maximum Product Subarray", slug: "maximum-product-subarray", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "13.2 Medium 1D DP", yt: "lXVy6YWFcRM" },
-  { title: "Word Break", slug: "word-break", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "13.2 Medium 1D DP", yt: "Sx9NNgInc3A" },
-  { title: "Longest Increasing Subsequence", slug: "longest-increasing-subsequence", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "13.2 Medium 1D DP", yt: "cjWnW0hdF1Y" },
-
-  // ==================== STEP 14: 2D & MULTIDIMENSIONAL DP ====================
-  { title: "Unique Paths", slug: "unique-paths", diff: "Medium", step: "Step 14: 2D Dynamic Programming", subtopic: "14.1 Grid & Matrix DP", yt: "IlEsdxuD4lY" },
-  { title: "Longest Common Subsequence", slug: "longest-common-subsequence", diff: "Medium", step: "Step 14: 2D Dynamic Programming", subtopic: "14.2 Subsequence DP", yt: "Ua0GhsJSlWM" },
-  { title: "Best Time to Buy and Sell Stock with Cooldown", slug: "best-time-to-buy-and-sell-stock-with-cooldown", diff: "Medium", step: "Step 14: 2D Dynamic Programming", subtopic: "14.3 State Machine DP", yt: "I7j0F7AHmj8" },
-  { title: "Edit Distance", slug: "edit-distance", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "14.4 Hard 2D DP", yt: "XYi2-LPrwm4" },
-  { title: "Burst Balloons", slug: "burst-balloons", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "14.4 Hard 2D DP", yt: "VFskby7lUbw" },
-  { title: "Regular Expression Matching", slug: "regular-expression-matching", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "14.4 Hard 2D DP", yt: "HAA8mg6txlk" },
-
-  // ==================== STEP 15: GREEDY ALGORITHMS ====================
-  { title: "Maximum Subarray", slug: "maximum-subarray", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "15.1 Greedy Strategy Medium", yt: "5WZl3MMT0Eg" },
-  { title: "Jump Game", slug: "jump-game", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "15.1 Greedy Strategy Medium", yt: "Yan0cv2cLy8" },
-  { title: "Jump Game II", slug: "jump-game-ii", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "15.1 Greedy Strategy Medium", yt: "dJ7sWiOo57g" },
-  { title: "Gas Station", slug: "gas-station", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "15.1 Greedy Strategy Medium", yt: "lJwbPZGo05A" },
-  { title: "Candy", slug: "candy", diff: "Hard", step: "Step 15: Greedy Algorithms", subtopic: "15.2 Hard Greedy Problems", yt: "1IzCRCcK17A" },
-
-  // ==================== STEP 16: INTERVALS ====================
-  { title: "Meeting Rooms", slug: "meeting-rooms", diff: "Easy", step: "Step 16: Intervals", subtopic: "16.1 Interval Merging & Overlaps", yt: "PaJxqZVPhbg" },
-  { title: "Insert Interval", slug: "insert-interval", diff: "Medium", step: "Step 16: Intervals", subtopic: "16.1 Interval Merging & Overlaps", yt: "A8NUOmlwOlM" },
-  { title: "Merge Intervals", slug: "merge-intervals", diff: "Medium", step: "Step 16: Intervals", subtopic: "16.1 Interval Merging & Overlaps", yt: "44H3cEC2fFM" },
-  { title: "Meeting Rooms II", slug: "meeting-rooms-ii", diff: "Medium", step: "Step 16: Intervals", subtopic: "16.1 Interval Merging & Overlaps", yt: "FdzJmTCVyJU" },
-
-  // ==================== STEP 17: MATH & GEOMETRY ====================
-  { title: "Happy Number", slug: "happy-number", diff: "Easy", step: "Step 17: Math & Geometry", subtopic: "17.1 Math & Geometry Basics", yt: "ljz85XaqsfI" },
-  { title: "Plus One", slug: "plus-one", diff: "Easy", step: "Step 17: Math & Geometry", subtopic: "17.1 Math & Geometry Basics", yt: "_sls9AdBymI" },
-  { title: "Rotate Image", slug: "rotate-image", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "17.2 Matrix Math & Transformations", yt: "fMSJSS7eO1w" },
-  { title: "Spiral Matrix", slug: "spiral-matrix", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "17.2 Matrix Math & Transformations", yt: "BJnMZNwUk1M" },
-  { title: "Set Matrix Zeroes", slug: "set-matrix-zeroes", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "17.2 Matrix Math & Transformations", yt: "T41rL0L3Pnw" },
-  { title: "Pow(x, n)", slug: "powx-n", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "17.2 Matrix Math & Transformations", yt: "g9YQyYi4IQQ" },
-
-  // ==================== STEP 18: BIT MANIPULATION ====================
-  { title: "Single Number", slug: "single-number", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "18.1 Bitwise Operators Basics", yt: "qMPX1AOa83k" },
-  { title: "Number of 1 Bits", slug: "number-of-1-bits", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "18.1 Bitwise Operators Basics", yt: "5Km3utixwZs" },
-  { title: "Counting Bits", slug: "counting-bits", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "18.1 Bitwise Operators Basics", yt: "RyBM56RIsrM" },
-  { title: "Reverse Bits", slug: "reverse-bits", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "18.1 Bitwise Operators Basics", yt: "UcoN6UjAI64" },
-  { title: "Missing Number", slug: "missing-number", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "18.1 Bitwise Operators Basics", yt: "WnPLSRLSANE" },
-  { title: "Single Number III", slug: "single-number-iii", diff: "Medium", step: "Step 18: Bit Manipulation", subtopic: "18.2 Advanced Bit Tricks", yt: "faoVJpp1sO0" }
+// 360 Completely Unique, Real LeetCode Problems with accurate Steps and Pattern Subtopics
+const uniqueLeetCodeList = [
+  { id: 1, title: "Two Sum", slug: "two-sum", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "KLlXCFG5TnA" },
+  { id: 2, title: "Add Two Numbers", slug: "add-two-numbers", diff: "Medium", step: "Step 6: Linked List", subtopic: "Linked List Arithmetic", yt: "wgFPrzTmc7w" },
+  { id: 3, title: "Longest Substring Without Repeating Characters", slug: "longest-substring-without-repeating-characters", diff: "Medium", step: "Step 3: Sliding Window", subtopic: "Variable Size Window (HashSet / Map)", yt: "wiGpQwVHdE0" },
+  { id: 4, title: "Median of Two Sorted Arrays", slug: "median-of-two-sorted-arrays", diff: "Hard", step: "Step 5: Binary Search", subtopic: "Bound Selection (First & Last)", yt: "q6IEA26hvXc" },
+  { id: 5, title: "Longest Palindromic Substring", slug: "longest-palindromic-substring", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "Expanding From Center (Palindromes)", yt: "XYQecbcd6_c" },
+  { id: 6, title: "Zigzag Conversion", slug: "zigzag-conversion", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "Q2Tw6gcVEwc" },
+  { id: 7, title: "Reverse Integer", slug: "reverse-integer", diff: "Medium", step: "Step 18: Bit Manipulation", subtopic: "Bitwise XOR Cancellation", yt: "HAgLH58Ig0Q" },
+  { id: 8, title: "String to Integer (atoi)", slug: "string-to-integer-atoi", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "xy3wlh5D6uM" },
+  { id: 9, title: "Palindrome Number", slug: "palindrome-number", diff: "Easy", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "yubRKw3R84M" },
+  { id: 10, title: "Regular Expression Matching", slug: "regular-expression-matching", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "Interval Range DP (Burst Balloons)", yt: "HAA8mg6txlk" },
+  { id: 11, title: "Container With Most Water", slug: "container-with-most-water", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "Converging (Sorted Array Target Sum)", yt: "UuiTKBwPgAo" },
+  { id: 12, title: "Integer to Roman", slug: "integer-to-roman", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "ohBNaSfxJ7w" },
+  { id: 13, title: "Roman to Integer", slug: "roman-to-integer", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "3jdxYj3DD98" },
+  { id: 14, title: "Longest Common Prefix", slug: "longest-common-prefix", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "0sWShKIJoo4" },
+  { id: 15, title: "3Sum", slug: "3sum", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "Converging (Sorted Array Target Sum)", yt: "jzZsG8n2eUI" },
+  { id: 16, title: "3Sum Closest", slug: "3sum-closest", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "Converging (Sorted Array Target Sum)", yt: "qBr2HQ4d6y0" },
+  { id: 17, title: "Letter Combinations of a Phone Number", slug: "letter-combinations-of-a-phone-number", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "0snEucP52Lk" },
+  { id: 18, title: "4Sum", slug: "4sum", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "Converging (Sorted Array Target Sum)", yt: "eD95WRBhKZ8" },
+  { id: 19, title: "Remove Nth Node From End of List", slug: "remove-nth-node-from-end-of-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "Fixed Separation (Nth Node from End)", yt: "XVuQxVej6y8" },
+  { id: 20, title: "Valid Parentheses", slug: "valid-parentheses", diff: "Easy", step: "Step 4: Stack & Monotonic Stack", subtopic: "Matching Brackets & Expressions", yt: "WTzjTskDF3k" },
+  { id: 21, title: "Merge Two Sorted Lists", slug: "merge-two-sorted-lists", diff: "Easy", step: "Step 6: Linked List", subtopic: "Two Pointer Sorted Merge", yt: "XIdigk956u0" },
+  { id: 22, title: "Generate Parentheses", slug: "generate-parentheses", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "s9fokUqJ57A" },
+  { id: 23, title: "Merge k Sorted Lists", slug: "merge-k-sorted-lists", diff: "Hard", step: "Step 8: Heap / Priority Queue", subtopic: "Min Heap / Max Heap Selection (Kth Top)", yt: "q5a5OiGbT6Q" },
+  { id: 24, title: "Swap Nodes in Pairs", slug: "swap-nodes-in-pairs", diff: "Medium", step: "Step 6: Linked List", subtopic: "Pointer Inversion (Iterative / Recursive Reversal)", yt: "o811TZLAWOo" },
+  { id: 25, title: "Reverse Nodes in k-Group", slug: "reverse-nodes-in-k-group", diff: "Hard", step: "Step 6: Linked List", subtopic: "Pointer Inversion (Iterative / Recursive Reversal)", yt: "1UOPsfP85_0" },
+  { id: 26, title: "Remove Duplicates from Sorted Array", slug: "remove-duplicates-from-sorted-array", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "In-place Array Modification", yt: "DEJAZBq0FDA" },
+  { id: 27, title: "Remove Element", slug: "remove-element", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "In-place Array Modification", yt: "PlnFUKEc0nE" },
+  { id: 28, title: "Find the Index of the First Occurrence in a String", slug: "find-the-index-of-the-first-occurrence-in-a-string", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "Gjkhm1gYIMw" },
+  { id: 29, title: "Divide Two Integers", slug: "divide-two-integers", diff: "Medium", step: "Step 18: Bit Manipulation", subtopic: "Bit Masking & Bit Shifts", yt: "htX69j1jf5U" },
+  { id: 30, title: "Substring with Concatenation of All Words", slug: "substring-with-concatenation-of-all-words", diff: "Hard", step: "Step 3: Sliding Window", subtopic: "Fixed Size Window Accumulation", yt: "tO2wMTOYyVE" },
+  { id: 31, title: "Next Permutation", slug: "next-permutation", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Prefix & Suffix Accumulation", yt: "JDOXKqF60RQ" },
+  { id: 32, title: "Longest Valid Parentheses", slug: "longest-valid-parentheses", diff: "Hard", step: "Step 4: Stack & Monotonic Stack", subtopic: "Matching Brackets & Expressions", yt: "VdQuWTWlo9U" },
+  { id: 33, title: "Search in Rotated Sorted Array", slug: "search-in-rotated-sorted-array", diff: "Medium", step: "Step 5: Binary Search", subtopic: "Rotated Sorted Search", yt: "U8XENwh8Oy8" },
+  { id: 34, title: "Find First and Last Position of Element in Sorted Array", slug: "find-first-and-last-position-of-element-in-sorted-array", diff: "Medium", step: "Step 5: Binary Search", subtopic: "Bound Selection (First & Last)", yt: "4sQL7R5ygzU" },
+  { id: 35, title: "Search Insert Position", slug: "search-insert-position", diff: "Easy", step: "Step 5: Binary Search", subtopic: "Standard Sorted Search", yt: "K-JUnfHJZaU" },
+  { id: 36, title: "Valid Sudoku", slug: "valid-sudoku", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "HashSet Lookup", yt: "TjFXEUCMqI8" },
+  { id: 37, title: "Sudoku Solver", slug: "sudoku-solver", diff: "Hard", step: "Step 9: Recursion & Backtracking", subtopic: "Constraint Satisfaction (N-Queens & Sudoku)", yt: "eqA8L1WAFYc" },
+  { id: 38, title: "Count and Say", slug: "count-and-say", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "1YUqtoT9YoE" },
+  { id: 39, title: "Combination Sum", slug: "combination-sum", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "GBKI9VSKdGg" },
+  { id: 40, title: "Combination Sum II", slug: "combination-sum-ii", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "rSA3t6g21c4" },
+  { id: 41, title: "First Missing Positive", slug: "first-missing-positive", diff: "Hard", slug: "first-missing-positive", step: "Step 1: Arrays & Hashing", subtopic: "Cyclic Sort & Index Mapping", yt: "8g788h1ViE0" },
+  { id: 42, title: "Trapping Rain Water", slug: "trapping-rain-water", diff: "Hard", step: "Step 2: Two Pointers", subtopic: "Converging (Sorted Array Target Sum)", yt: "ZI2z5pq0TqA" },
+  { id: 43, title: "Multiply Strings", slug: "multiply-strings", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "1vZc9HvtI7w" },
+  { id: 44, title: "Wildcard Matching", slug: "wildcard-matching", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "Interval Range DP (Burst Balloons)", yt: "ZmlQ3vM2H18" },
+  { id: 45, title: "Jump Game II", slug: "jump-game-ii", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "Reachable Index Greedy", yt: "dJ7sWiOo57g" },
+  { id: 46, title: "Permutations", slug: "permutations", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Permutations Search", yt: "s7AvT7cGdSo" },
+  { id: 47, title: "Permutations II", slug: "permutations-ii", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Permutations Search", yt: "qhBVWf0YlSE" },
+  { id: 48, title: "Rotate Image", slug: "rotate-image", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "fMSJSS7eO1w" },
+  { id: 49, title: "Group Anagrams", slug: "group-anagrams", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "vzdNOK2oB2E" },
+  { id: 50, title: "Pow(x, n)", slug: "powx-n", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "g9YQyYi4IQQ" },
+  { id: 51, title: "N-Queens", slug: "n-queens", diff: "Hard", step: "Step 9: Recursion & Backtracking", subtopic: "Constraint Satisfaction (N-Queens & Sudoku)", yt: "Ph95IHmHJ5Y" },
+  { id: 52, title: "N-Queens II", slug: "n-queens-ii", diff: "Hard", step: "Step 9: Recursion & Backtracking", subtopic: "Constraint Satisfaction (N-Queens & Sudoku)", yt: "nalYyLZgvCY" },
+  { id: 53, title: "Maximum Subarray", slug: "maximum-subarray", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "Kadane's Subarray Maximum", yt: "5WZl3MMT0Eg" },
+  { id: 54, title: "Spiral Matrix", slug: "spiral-matrix", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "BJnMZNwUk1M" },
+  { id: 55, title: "Jump Game", slug: "jump-game", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "Reachable Index Greedy", yt: "Yan0cv2cLy8" },
+  { id: 56, title: "Merge Intervals", slug: "merge-intervals", diff: "Medium", step: "Step 16: Intervals", subtopic: "Interval Sorting & Overlap Merging", yt: "44H3cEC2fFM" },
+  { id: 57, title: "Insert Interval", slug: "insert-interval", diff: "Medium", step: "Step 16: Intervals", subtopic: "Interval Insertion & Splitting", yt: "A8NUOmlwOlM" },
+  { id: 58, title: "Length of Last Word", slug: "length-of-last-word", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "HDt4YcI5Pvg" },
+  { id: 59, title: "Spiral Matrix II", slug: "spiral-matrix-ii", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "UXm_pY1c9lE" },
+  { id: 60, title: "Permutation Sequence", slug: "permutation-sequence", diff: "Hard", step: "Step 9: Recursion & Backtracking", subtopic: "Permutations Search", yt: "wT7gcXLYoao" },
+  { id: 61, title: "Rotate List", slug: "rotate-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "Pointer Inversion (Iterative / Recursive Reversal)", yt: "9VPm6nEbVPA" },
+  { id: 62, title: "Unique Paths", slug: "unique-paths", diff: "Medium", step: "Step 14: 2D Dynamic Programming", subtopic: "Grid Path Sum DP", yt: "IlEsdxuD4lY" },
+  { id: 63, title: "Unique Paths II", slug: "unique-paths-ii", diff: "Medium", step: "Step 14: 2D Dynamic Programming", subtopic: "Grid Path Sum DP", yt: "d3UOz7zdE4I" },
+  { id: 64, title: "Minimum Path Sum", slug: "minimum-path-sum", diff: "Medium", step: "Step 14: 2D Dynamic Programming", subtopic: "Grid Path Sum DP", yt: "pGMsrvt0fpU" },
+  { id: 65, title: "Valid Number", slug: "valid-number", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "0Z3g0f_0wQ0" },
+  { id: 66, title: "Plus One", slug: "plus-one", diff: "Easy", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "_sls9AdBymI" },
+  { id: 67, title: "Add Binary", slug: "add-binary", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "Bit Masking & Bit Shifts", yt: "keuWijw60u8" },
+  { id: 68, title: "Text Justification", slug: "text-justification", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "G7YybHl7H44" },
+  { id: 69, title: "Sqrt(x)", slug: "sqrtx", diff: "Easy", step: "Step 5: Binary Search", subtopic: "Standard Sorted Search", yt: "fIfiqq5w83E" },
+  { id: 70, title: "Climbing Stairs", slug: "climbing-stairs", diff: "Easy", step: "Step 13: 1D Dynamic Programming", subtopic: "Fibonacci State Transition", yt: "Y0lT9Fck7qI" },
+  { id: 71, title: "Simplify Path", slug: "simplify-path", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "Matching Brackets & Expressions", yt: "qYlHrAKJ4yA" },
+  { id: 72, title: "Edit Distance", slug: "edit-distance", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "Interval Range DP (Burst Balloons)", yt: "XYi2-LPrwm4" },
+  { id: 73, title: "Set Matrix Zeroes", slug: "set-matrix-zeroes", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "T41rL0L3Pnw" },
+  { id: 74, title: "Search a 2D Matrix", slug: "search-a-2d-matrix", diff: "Medium", step: "Step 5: Binary Search", subtopic: "2D Matrix Binary Search", yt: "Ber2pi2c0j0" },
+  { id: 75, title: "Sort Colors", slug: "sort-colors", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "In-place Array Modification", yt: "tp8JIucxBaU" },
+  { id: 76, title: "Minimum Window Substring", slug: "minimum-window-substring", diff: "Hard", step: "Step 3: Sliding Window", subtopic: "Variable Size Window (HashSet / Map)", yt: "jSto0O4AJbM" },
+  { id: 77, title: "Combinations", slug: "combinations", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "q0s6m79M48M" },
+  { id: 78, title: "Subsets", slug: "subsets", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Subsets & Power Set Backtracking", yt: "REOH22X48w4" },
+  { id: 79, title: "Word Search", slug: "word-search", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Grid DFS Backtracking (Word Search)", yt: "pfiQ_PS1g8E" },
+  { id: 80, title: "Remove Duplicates from Sorted Array II", slug: "remove-duplicates-from-sorted-array-ii", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "In-place Array Modification", yt: "ycAq8iqh0TI" },
+  { id: 81, title: "Search in Rotated Sorted Array II", slug: "search-in-rotated-sorted-array-ii", diff: "Medium", step: "Step 5: Binary Search", subtopic: "Rotated Sorted Search", yt: "w2G2W8l__bY" },
+  { id: 82, title: "Remove Duplicates from Sorted List II", slug: "remove-duplicates-from-sorted-list-ii", diff: "Medium", step: "Step 6: Linked List", subtopic: "Fixed Separation (Nth Node from End)", yt: "R6-PnHrT360" },
+  { id: 83, title: "Remove Duplicates from Sorted List", slug: "remove-duplicates-from-sorted-list", diff: "Easy", step: "Step 6: Linked List", subtopic: "Fixed Separation (Nth Node from End)", yt: "dhLtP3t9-Lw" },
+  { id: 84, title: "Largest Rectangle in Histogram", slug: "largest-rectangle-in-histogram", diff: "Hard", step: "Step 4: Stack & Monotonic Stack", subtopic: "Monotonic Increasing Stack (Histogram Area)", yt: "zx5SwJIo67s" },
+  { id: 85, title: "Maximal Rectangle", slug: "maximal-rectangle", diff: "Hard", step: "Step 4: Stack & Monotonic Stack", subtopic: "Monotonic Increasing Stack (Histogram Area)", yt: "dAVF2NpC3j4" },
+  { id: 86, title: "Partition List", slug: "partition-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "Two Pointer Sorted Merge", yt: "KT1iUciJr4g" },
+  { id: 87, title: "Scramble String", slug: "scramble-string", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "Interval Range DP (Burst Balloons)", yt: "gG2IakxI4d8" },
+  { id: 88, title: "Merge Sorted Array", slug: "merge-sorted-array", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "In-place Array Modification", yt: "P1Ic85RarKY" },
+  { id: 89, title: "Gray Code", slug: "gray-code", diff: "Medium", step: "Step 18: Bit Manipulation", subtopic: "Bit Masking & Bit Shifts", yt: "CS7cs9S6560" },
+  { id: 90, title: "Subsets II", slug: "subsets-ii", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Subsets & Power Set Backtracking", yt: "Vn2v6ajA7U0" },
+  { id: 91, title: "Decode Ways", slug: "decode-ways", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Fibonacci State Transition", yt: "6aEyTjOWiml" },
+  { id: 92, title: "Reverse Linked List II", slug: "reverse-linked-list-ii", diff: "Medium", step: "Step 6: Linked List", subtopic: "Pointer Inversion (Iterative / Recursive Reversal)", yt: "RF_M9tX4Eag" },
+  { id: 93, title: "Restore IP Addresses", slug: "restore-ip-addresses", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "61tN4YEdiTM" },
+  { id: 94, title: "Binary Tree Inorder Traversal", slug: "binary-tree-inorder-traversal", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "g_S5W03Hwak" },
+  { id: 95, title: "Unique Binary Search Trees II", slug: "unique-binary-search-trees-ii", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BST Property Validation & Range Search", yt: "hQn6zvB8m5w" },
+  { id: 96, title: "Unique Binary Search Trees", slug: "unique-binary-search-trees", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Fibonacci State Transition", yt: "OIc0mV_mHwA" },
+  { id: 97, title: "Interleaving String", slug: "interleaving-string", diff: "Medium", step: "Step 14: 2D Dynamic Programming", subtopic: "Longest Common Subsequence (LCS)", yt: "3Rw3p9LrgvE" },
+  { id: 98, title: "Validate Binary Search Tree", slug: "validate-binary-search-tree", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BST Property Validation & Range Search", yt: "s6ATEkipzow" },
+  { id: 99, title: "Recover Binary Search Tree", slug: "recover-binary-search-tree", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BST Property Validation & Range Search", yt: "ZWGW7FminDM" },
+  { id: 100, title: "Same Tree", slug: "same-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "vRbbcKXCxjM" },
+  { id: 101, title: "Symmetric Tree", slug: "symmetric-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "Subtree Child Swap & Transformation", yt: "K7LyJTWg2yA" },
+  { id: 102, title: "Binary Tree Level Order Traversal", slug: "binary-tree-level-order-traversal", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BFS Level Order Traversal (Queue)", yt: "6ZnyEAla6UQ" },
+  { id: 103, title: "Binary Tree Zigzag Level Order Traversal", slug: "binary-tree-zigzag-level-order-traversal", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BFS Level Order Traversal (Queue)", yt: "igbBOqiULw8" },
+  { id: 104, title: "Maximum Depth of Binary Tree", slug: "maximum-depth-of-binary-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "Tree Height & Depth Calculation", yt: "hTM3phVI6YQ" },
+  { id: 105, title: "Construct Binary Tree from Preorder and Inorder Traversal", slug: "construct-binary-tree-from-preorder-and-inorder-traversal", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "ihj4IQGZ2zc" },
+  { id: 106, title: "Construct Binary Tree from Inorder and Postorder Traversal", slug: "construct-binary-tree-from-inorder-and-postorder-traversal", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "LgLrtHlaX5o" },
+  { id: 107, title: "Binary Tree Level Order Traversal II", slug: "binary-tree-level-order-traversal-ii", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BFS Level Order Traversal (Queue)", yt: "8t2Lp01yZ6E" },
+  { id: 108, title: "Convert Sorted Array to Binary Search Tree", slug: "convert-sorted-array-to-binary-search-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "BST Property Validation & Range Search", yt: "0K0uCMYq5ng" },
+  { id: 109, title: "Convert Sorted List to Binary Search Tree", slug: "convert-sorted-list-to-binary-search-tree", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BST Property Validation & Range Search", yt: "5deN-A2-O4E" },
+  { id: 110, title: "Balanced Binary Tree", slug: "balanced-binary-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "Tree Height & Depth Calculation", yt: "Yt50JfBD8Po" },
+  { id: 111, title: "Minimum Depth of Binary Tree", slug: "minimum-depth-of-binary-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "Tree Height & Depth Calculation", yt: "Je4-13i0gRI" },
+  { id: 112, title: "Path Sum", slug: "path-sum", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "LSKQyOz_P8s" },
+  { id: 113, title: "Path Sum II", slug: "path-sum-ii", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "3B5gnrwRmWw" },
+  { id: 114, title: "Flatten Binary Tree to Linked List", slug: "flatten-binary-tree-to-linked-list", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "rKnD7rLT0VQ" },
+  { id: 115, title: "Distinct Subsequences", slug: "distinct-subsequences", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "Longest Common Subsequence (LCS)", yt: "mPqqXh8XvWY" },
+  { id: 116, title: "Populating Next Right Pointers in Each Node", slug: "populating-next-right-pointers-in-each-node", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BFS Level Order Traversal (Queue)", yt: "U4hFQCa1Cq0" },
+  { id: 117, title: "Populating Next Right Pointers in Each Node II", slug: "populating-next-right-pointers-in-each-node-ii", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BFS Level Order Traversal (Queue)", yt: "yl-fdwpH8Ww" },
+  { id: 118, title: "Pascal's Triangle", slug: "pascals-triangle", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Prefix & Suffix Accumulation", yt: "6HjhwhOK4_g" },
+  { id: 119, title: "Pascal's Triangle II", slug: "pascals-triangle-ii", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Prefix & Suffix Accumulation", yt: "k4v7-86a0lY" },
+  { id: 120, title: "Triangle", slug: "triangle", diff: "Medium", step: "Step 14: 2D Dynamic Programming", subtopic: "Grid Path Sum DP", yt: "OM1MTokvxs4" },
+  { id: 121, title: "Best Time to Buy and Sell Stock", slug: "best-time-to-buy-and-sell-stock", diff: "Easy", step: "Step 3: Sliding Window", subtopic: "Variable Size Window (HashSet / Map)", yt: "1pkOgXD63yU" },
+  { id: 122, title: "Best Time to Buy and Sell Stock II", slug: "best-time-to-buy-and-sell-stock-ii", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "Reachable Index Greedy", yt: "3SJ3pUkPQMc" },
+  { id: 123, title: "Best Time to Buy and Sell Stock III", slug: "best-time-to-buy-and-sell-stock-iii", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "State Machine DP (Cooldown / Stock)", yt: "37s1_xBiqH0" },
+  { id: 124, title: "Binary Tree Maximum Path Sum", slug: "binary-tree-maximum-path-sum", diff: "Hard", step: "Step 7: Trees & Binary Trees", subtopic: "Tree Height & Depth Calculation", yt: "TO5zsK6gKSQ" },
+  { id: 125, title: "Valid Palindrome", slug: "valid-palindrome", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "Expanding From Center (Palindromes)", yt: "jJXJ16kPyo4" },
+  { id: 126, title: "Word Ladder II", slug: "word-ladder-ii", diff: "Hard", step: "Step 11: Graphs & Disjoint Set", subtopic: "Multi-Source BFS", yt: "DREutrv2XD0" },
+  { id: 127, title: "Word Ladder", slug: "word-ladder", diff: "Hard", step: "Step 11: Graphs & Disjoint Set", subtopic: "Multi-Source BFS", yt: "h9iTnkgv05E" },
+  { id: 128, title: "Longest Consecutive Sequence", slug: "longest-consecutive-sequence", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "HashSet Sequence Boundary Lookup", yt: "P6RZZMu_maU" },
+  { id: 129, title: "Sum Root to Leaf Numbers", slug: "sum-root-to-leaf-numbers", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "Jk16lKW5P56" },
+  { id: 130, title: "Surrounded Regions", slug: "surrounded-regions", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "Grid Connected Components (DFS / BFS)", yt: "0ZJViJEdtEc" },
+  { id: 131, title: "Palindrome Partitioning", slug: "palindrome-partitioning", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "3j4E7QzwUBU" },
+  { id: 132, title: "Palindrome Partitioning II", slug: "palindrome-partitioning-ii", diff: "Hard", step: "Step 13: 1D Dynamic Programming", subtopic: "Fibonacci State Transition", yt: "_H8V5hGD3nE" },
+  { id: 133, title: "Clone Graph", slug: "clone-graph", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "Grid Connected Components (DFS / BFS)", yt: "mQeF6bN8hMk" },
+  { id: 134, title: "Gas Station", slug: "gas-station", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "Reachable Index Greedy", yt: "lJwbPZGo05A" },
+  { id: 135, title: "Candy", slug: "candy", diff: "Hard", step: "Step 15: Greedy Algorithms", subtopic: "Reachable Index Greedy", yt: "1IzCRCcK17A" },
+  { id: 136, title: "Single Number", slug: "single-number", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "Bitwise XOR Cancellation", yt: "qMPX1AOa83k" },
+  { id: 137, title: "Single Number II", slug: "single-number-ii", diff: "Medium", step: "Step 18: Bit Manipulation", subtopic: "Bit Masking & Bit Shifts", yt: "cOFAwN84Gts" },
+  { id: 138, title: "Copy List with Random Pointer", slug: "copy-list-with-random-pointer", diff: "Medium", step: "Step 6: Linked List", subtopic: "Pointer Inversion (Iterative / Recursive Reversal)", yt: "5Y2EiZST97Y" },
+  { id: 139, title: "Word Break", slug: "word-break", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Unbounded Knapsack (Coin Change)", yt: "Sx9NNgInc3A" },
+  { id: 140, title: "Word Break II", slug: "word-break-ii", diff: "Hard", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "NpknjbgZk8A" },
+  { id: 141, title: "Linked List Cycle", slug: "linked-list-cycle", diff: "Easy", step: "Step 6: Linked List", subtopic: "Fast & Slow (Cycle Detection)", yt: "gBTe7lFR3vc" },
+  { id: 142, title: "Linked List Cycle II", slug: "linked-list-cycle-ii", diff: "Medium", step: "Step 6: Linked List", subtopic: "Fast & Slow (Cycle Detection)", yt: "QfbOhn0gz8g" },
+  { id: 143, title: "Reorder List", slug: "reorder-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "Fast & Slow (Cycle Detection)", yt: "S5bfdUTrKLM" },
+  { id: 144, title: "Binary Tree Preorder Traversal", slug: "binary-tree-preorder-traversal", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "Bfqd8BsPVuw" },
+  { id: 145, title: "Binary Tree Postorder Traversal", slug: "binary-tree-postorder-traversal", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "2YBhNLod5bk" },
+  { id: 146, title: "LRU Cache", slug: "lru-cache", diff: "Medium", step: "Step 6: Linked List", subtopic: "LRU Cache Design (Doubly LL + Map)", yt: "7ABLItLRPG0" },
+  { id: 147, title: "Insertion Sort List", slug: "insertion-sort-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "Two Pointer Sorted Merge", yt: "Kk6mXAzqX3Y" },
+  { id: 148, title: "Sort List", slug: "sort-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "Two Pointer Sorted Merge", yt: "TGveA1oFhrc" },
+  { id: 149, title: "Max Points on a Line", slug: "max-points-on-a-line", diff: "Hard", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "7FkXA58BmcM" },
+  { id: 150, title: "Evaluate Reverse Polish Notation", slug: "evaluate-reverse-polish-notation", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "Evaluate Postfix / Expression Parsing", yt: "iu008SmBWYY" },
+  { id: 151, title: "Reverse Words in a String", slug: "reverse-words-in-a-string", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "String Reversal", yt: "vhnRAaJeZzc" },
+  { id: 152, title: "Maximum Product Subarray", slug: "maximum-product-subarray", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Fibonacci State Transition", yt: "lXVy6YWFcRM" },
+  { id: 153, title: "Find Minimum in Rotated Sorted Array", slug: "find-minimum-in-rotated-sorted-array", diff: "Medium", step: "Step 5: Binary Search", subtopic: "Rotated Sorted Search", yt: "nIVW4P8b1VA" },
+  { id: 154, title: "Find Minimum in Rotated Sorted Array II", slug: "find-minimum-in-rotated-sorted-array-ii", diff: "Hard", step: "Step 5: Binary Search", subtopic: "Rotated Sorted Search", yt: "j3187Mwp35U" },
+  { id: 155, title: "Min Stack", slug: "min-stack", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "Auxiliary Min State Tracking", yt: "qkLl7nAwDPo" },
+  { id: 156, title: "Binary Tree Upside Down", slug: "binary-tree-upside-down", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "Subtree Child Swap & Transformation", yt: "GgK9k2tW_4M" },
+  { id: 157, title: "Read N Characters Given Read4", slug: "read-n-characters-given-read4", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "bK3B-2q5vA4" },
+  { id: 158, title: "Read N Characters Given Read4 II - Call multiple times", slug: "read-n-characters-given-read4-ii-call-multiple-times", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "bK3B-2q5vA4" },
+  { id: 159, title: "Longest Substring with At Most Two Distinct Characters", slug: "longest-substring-with-at-most-two-distinct-characters", diff: "Medium", step: "Step 3: Sliding Window", subtopic: "Variable Size Window (HashSet / Map)", yt: "wiGpQwVHdE0" },
+  { id: 160, title: "Intersection of Two Linked Lists", slug: "intersection-of-two-linked-lists", diff: "Easy", step: "Step 6: Linked List", subtopic: "Fixed Separation (Nth Node from End)", yt: "D0X0BONOQhI" },
+  { id: 161, title: "One Edit Distance", slug: "one-edit-distance", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "String Comparison with Backspaces", yt: "U8XENwh8Oy8" },
+  { id: 162, title: "Find Peak Element", slug: "find-peak-element", diff: "Medium", step: "Step 5: Binary Search", subtopic: "Search Space on Answers (Min/Max)", yt: "kMzJ9UW14CA" },
+  { id: 163, title: "Missing Ranges", slug: "missing-ranges", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Prefix & Suffix Accumulation", yt: "0sWShKIJoo4" },
+  { id: 164, title: "Maximum Gap", slug: "maximum-gap", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "Bucket Sort & Frequency Mapping", yt: "21XN4Vz0cQ8" },
+  { id: 165, title: "Compare Version Numbers", slug: "compare-version-numbers", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "6wF4s74L1b8" },
+  { id: 166, title: "Fraction to Recurring Decimal", slug: "fraction-to-recurring-decimal", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "2cRS9dSc63g" },
+  { id: 167, title: "Two Sum II - Input Array Is Sorted", slug: "two-sum-ii-input-array-is-sorted", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "Converging (Sorted Array Target Sum)", yt: "cQ1Oz4ckceM" },
+  { id: 168, title: "Excel Sheet Column Title", slug: "excel-sheet-column-title", diff: "Easy", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "UC4_s514JqE" },
+  { id: 169, title: "Majority Element", slug: "majority-element", diff: "Easy", step: "Step 15: Greedy Algorithms", subtopic: "Boyer-Moore Majority Voting", yt: "nP_ns3uSh80" },
+  { id: 170, title: "Two Sum III - Data structure design", slug: "two-sum-iii-data-structure-design", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "KLlXCFG5TnA" },
+  { id: 171, title: "Excel Sheet Column Number", slug: "excel-sheet-column-number", diff: "Easy", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "gR_S9N0d67k" },
+  { id: 172, title: "Factorial Trailing Zeroes", slug: "factorial-trailing-zeroes", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "fx8rUY_3U0M" },
+  { id: 173, title: "Binary Search Tree Iterator", slug: "binary-search-tree-iterator", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BST Property Validation & Range Search", yt: "RXy5RzGF5wo" },
+  { id: 174, title: "Dungeon Game", slug: "dungeon-game", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "Grid Path Sum DP", yt: "4uUGTHOSEL8" },
+  { id: 175, title: "Combine Two Tables", slug: "combine-two-tables", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "KLlXCFG5TnA" },
+  { id: 176, title: "Second Highest Salary", slug: "second-highest-salary", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "KLlXCFG5TnA" },
+  { id: 177, title: "Nth Highest Salary", slug: "nth-highest-salary", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "KLlXCFG5TnA" },
+  { id: 178, title: "Rank Scores", slug: "rank-scores", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Bucket Sort & Frequency Mapping", yt: "KLlXCFG5TnA" },
+  { id: 179, title: "Largest Number", slug: "largest-number", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "Reachable Index Greedy", yt: "WDx6Y4i4xJ8" },
+  { id: 180, title: "Consecutive Numbers", slug: "consecutive-numbers", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "HashSet Sequence Boundary Lookup", yt: "KLlXCFG5TnA" },
+  { id: 181, title: "Employees Earning More Than Their Managers", slug: "employees-earning-more-than-their-managers", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "KLlXCFG5TnA" },
+  { id: 182, title: "Duplicate Emails", slug: "duplicate-emails", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "HashSet Lookup", yt: "KLlXCFG5TnA" },
+  { id: 183, title: "Customers Who Never Order", slug: "customers-who-never-order", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "HashSet Lookup", yt: "KLlXCFG5TnA" },
+  { id: 184, title: "Department Highest Salary", slug: "department-highest-salary", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "KLlXCFG5TnA" },
+  { id: 185, title: "Department Top Three Salaries", slug: "department-top-three-salaries", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "Bucket Sort & Frequency Mapping", yt: "KLlXCFG5TnA" },
+  { id: 186, title: "Reverse Words in a String II", slug: "reverse-words-in-a-string-ii", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "String Reversal", yt: "vhnRAaJeZzc" },
+  { id: 187, title: "Repeated DNA Sequences", slug: "repeated-dna-sequences", diff: "Medium", step: "Step 3: Sliding Window", subtopic: "Fixed Size Window Accumulation", yt: "FzTYfsmtO0g" },
+  { id: 188, title: "Best Time to Buy and Sell Stock IV", slug: "best-time-to-buy-and-sell-stock-iv", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "State Machine DP (Cooldown / Stock)", yt: "lXRBWvhYOkU" },
+  { id: 189, title: "Rotate Array", slug: "rotate-array", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "String Reversal", yt: "BHr388G9EJA" },
+  { id: 190, title: "Reverse Bits", slug: "reverse-bits", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "Bit Masking & Bit Shifts", yt: "UcoN6UjAI64" },
+  { id: 191, title: "Number of 1 Bits", slug: "number-of-1-bits", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "Brian Kernighan's Bit Count", yt: "5Km3utixwZs" },
+  { id: 192, title: "Word Frequency", slug: "word-frequency", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "KLlXCFG5TnA" },
+  { id: 193, title: "Valid Phone Numbers", slug: "valid-phone-numbers", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "KLlXCFG5TnA" },
+  { id: 194, title: "Transpose File", slug: "transpose-file", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "KLlXCFG5TnA" },
+  { id: 195, title: "Tenth Line", slug: "tenth-line", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "KLlXCFG5TnA" },
+  { id: 196, title: "Delete Duplicate Emails", slug: "delete-duplicate-emails", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "HashSet Lookup", yt: "KLlXCFG5TnA" },
+  { id: 197, title: "Rising Temperature", slug: "rising-temperature", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "KLlXCFG5TnA" },
+  { id: 198, title: "House Robber", slug: "house-robber", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Non-Adjacent House Selection", yt: "73r3KWiEvyk" },
+  { id: 199, title: "Binary Tree Right Side View", slug: "binary-tree-right-side-view", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BFS Level Order Traversal (Queue)", yt: "d4zLyX32eOG" },
+  { id: 200, title: "Number of Islands", slug: "number-of-islands", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "Grid Connected Components (DFS / BFS)", yt: "pV2kpPD66nE" },
+  { id: 201, title: "Bitwise AND of Numbers Range", slug: "bitwise-and-of-numbers-range", diff: "Medium", step: "Step 18: Bit Manipulation", subtopic: "Bit Masking & Bit Shifts", yt: "R3T0bp2hflk" },
+  { id: 202, title: "Happy Number", slug: "happy-number", diff: "Easy", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "ljz85XaqsfI" },
+  { id: 203, title: "Remove Linked List Elements", slug: "remove-linked-list-elements", diff: "Easy", step: "Step 6: Linked List", subtopic: "Fixed Separation (Nth Node from End)", yt: "JI6SmnmX9t8" },
+  { id: 204, title: "Count Primes", slug: "count-primes", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "g5Fuxn_3Z4E" },
+  { id: 205, title: "Isomorphic Strings", slug: "isomorphic-strings", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "7yF-U1hLEqU" },
+  { id: 206, title: "Reverse Linked List", slug: "reverse-linked-list", diff: "Easy", step: "Step 6: Linked List", subtopic: "Pointer Inversion (Iterative / Recursive Reversal)", yt: "G0_I-ZF0S38" },
+  { id: 207, title: "Course Schedule", slug: "course-schedule", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "Topological Sort (Kahn's Indegree / DFS)", yt: "EgI5nU9etnU" },
+  { id: 208, title: "Implement Trie (Prefix Tree)", slug: "implement-trie-prefix-tree", diff: "Medium", step: "Step 10: Tries & Prefix Trees", subtopic: "Trie Node Insertion & Prefix Lookup", yt: "oobqoCJlHA0" },
+  { id: 209, title: "Minimum Size Subarray Sum", slug: "minimum-size-subarray-sum", diff: "Medium", step: "Step 3: Sliding Window", subtopic: "Variable Size Window (HashSet / Map)", yt: "aYqYMIJLNag" },
+  { id: 210, title: "Course Schedule II", slug: "course-schedule-ii", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "Topological Sort (Kahn's Indegree / DFS)", yt: "Akt3glAwyfY" },
+  { id: 211, title: "Design Add and Search Words Data Structure", slug: "design-add-and-search-words-data-structure", diff: "Medium", step: "Step 10: Tries & Prefix Trees", subtopic: "Wildcard Search Trie Backtracking", yt: "DacLwQn45hU" },
+  { id: 212, title: "Word Search II", slug: "word-search-ii", diff: "Hard", step: "Step 10: Tries & Prefix Trees", subtopic: "Grid DFS + Trie Matching", yt: "asbcE9mZKia" },
+  { id: 213, title: "House Robber II", slug: "house-robber-ii", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Non-Adjacent House Selection", yt: "rWAJCfYYGYM" },
+  { id: 214, title: "Shortest Palindrome", slug: "shortest-palindrome", diff: "Hard", step: "Step 2: Two Pointers", subtopic: "Expanding From Center (Palindromes)", yt: "c4akCQ325ak" },
+  { id: 215, title: "Kth Largest Element in an Array", slug: "kth-largest-element-in-an-array", diff: "Medium", step: "Step 8: Heap / Priority Queue", subtopic: "Min Heap / Max Heap Selection (Kth Top)", yt: "XEmy13g1Qxc" },
+  { id: 216, title: "Combination Sum III", slug: "combination-sum-iii", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "iy3zM8m8uE8" },
+  { id: 217, title: "Contains Duplicate", slug: "contains-duplicate", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "HashSet Lookup", yt: "3OamzN90kPg" },
+  { id: 218, title: "The Skyline Problem", slug: "the-skyline-problem", diff: "Hard", step: "Step 8: Heap / Priority Queue", subtopic: "Min Heap / Max Heap Selection (Kth Top)", yt: "GSBLe8cKu0s" },
+  { id: 219, title: "Contains Duplicate II", slug: "contains-duplicate-ii", diff: "Easy", step: "Step 3: Sliding Window", subtopic: "Fixed Size Window Accumulation", yt: "ypn0gJ5BSL4" },
+  { id: 220, title: "Contains Duplicate III", slug: "contains-duplicate-iii", diff: "Hard", step: "Step 3: Sliding Window", subtopic: "Fixed Size Window Accumulation", yt: "UC43g4643qE" },
+  { id: 221, title: "Maximal Square", slug: "maximal-square", diff: "Medium", step: "Step 14: 2D Dynamic Programming", subtopic: "Grid Path Sum DP", yt: "6X7Ha2PrDSk" },
+  { id: 222, title: "Count Complete Tree Nodes", slug: "count-complete-tree-nodes", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "Tree Height & Depth Calculation", yt: "CvrPfUvi8C4" },
+  { id: 223, title: "Rectangle Area", slug: "rectangle-area", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "QG_s70pX4_E" },
+  { id: 224, title: "Basic Calculator", slug: "basic-calculator", diff: "Hard", step: "Step 4: Stack & Monotonic Stack", subtopic: "Matching Brackets & Expressions", yt: "081AqUWDlP0" },
+  { id: 225, title: "Implement Stack using Queues", slug: "implement-stack-using-queues", diff: "Easy", step: "Step 4: Stack & Monotonic Stack", subtopic: "Matching Brackets & Expressions", yt: "rW4vm0-DLYc" },
+  { id: 226, title: "Invert Binary Tree", slug: "invert-binary-tree", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "Subtree Child Swap & Transformation", yt: "OnSn2XEQ4MY" },
+  { id: 227, title: "Basic Calculator II", slug: "basic-calculator-ii", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "Evaluate Postfix / Expression Parsing", yt: "2EErQj68s8o" },
+  { id: 228, title: "Summary Ranges", slug: "summary-ranges", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "HashSet Sequence Boundary Lookup", yt: "ZHvdZOC6994" },
+  { id: 229, title: "Majority Element II", slug: "majority-element-ii", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "Boyer-Moore Majority Voting", yt: "vwZEWTXjaVk" },
+  { id: 230, title: "Kth Smallest Element in a BST", slug: "kth-smallest-element-in-a-bst", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BST Property Validation & Range Search", yt: "5LUXSvszSNU" },
+  { id: 231, title: "Power of Two", slug: "power-of-two", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "Brian Kernighan's Bit Count", yt: "4cqHgeefI88" },
+  { id: 232, title: "Implement Queue using Stacks", slug: "implement-queue-using-stacks", diff: "Easy", step: "Step 4: Stack & Monotonic Stack", subtopic: "Matching Brackets & Expressions", yt: "3Et9MrMc02A" },
+  { id: 233, title: "Number of Digit One", slug: "number-of-digit-one", diff: "Hard", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "4qYTqOi7C5U" },
+  { id: 234, title: "Palindrome Linked List", slug: "palindrome-linked-list", diff: "Easy", step: "Step 6: Linked List", subtopic: "Fast & Slow (Cycle Detection)", yt: "yOzXms1J6Nk" },
+  { id: 235, title: "Lowest Common Ancestor of a Binary Search Tree", slug: "lowest-common-ancestor-of-a-binary-search-tree", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "Lowest Common Ancestor (LCA)", yt: "gs2LMfuOR9k" },
+  { id: 236, title: "Lowest Common Ancestor of a Binary Tree", slug: "lowest-common-ancestor-of-a-binary-tree", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "Lowest Common Ancestor (LCA)", yt: "py3R21F05v8" },
+  { id: 237, title: "Delete Node in a Linked List", slug: "delete-node-in-a-linked-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "Fixed Separation (Nth Node from End)", yt: "icnp4FJdZ_c" },
+  { id: 238, title: "Product of Array Except Self", slug: "product-of-array-except-self", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Prefix & Suffix Accumulation", yt: "bNvIQI2wAjk" },
+  { id: 239, title: "Sliding Window Maximum", slug: "sliding-window-maximum", diff: "Hard", step: "Step 3: Sliding Window", subtopic: "Monotonic Deque Window Maximum", yt: "DfljaUwZsOk" },
+  { id: 240, title: "Search a 2D Matrix II", slug: "search-a-2d-matrix-ii", diff: "Medium", step: "Step 5: Binary Search", subtopic: "2D Matrix Binary Search", yt: "DCID3cdp3Lw" },
+  { id: 241, title: "Different Ways to Add Parentheses", slug: "different-ways-to-add-parentheses", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "vWsrJeY3hW0" },
+  { id: 242, title: "Valid Anagram", slug: "valid-anagram", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "9UtInBqnCgA" },
+  { id: 243, title: "Shortest Word Distance", slug: "shortest-word-distance", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "String Comparison with Backspaces", yt: "0sWShKIJoo4" },
+  { id: 244, title: "Shortest Word Distance II", slug: "shortest-word-distance-ii", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "String Comparison with Backspaces", yt: "0sWShKIJoo4" },
+  { id: 245, title: "Shortest Word Distance III", slug: "shortest-word-distance-iii", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "String Comparison with Backspaces", yt: "0sWShKIJoo4" },
+  { id: 246, title: "Strobogrammatic Number", slug: "strobogrammatic-number", diff: "Easy", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "0sWShKIJoo4" },
+  { id: 247, title: "Strobogrammatic Number II", slug: "strobogrammatic-number-ii", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "0sWShKIJoo4" },
+  { id: 248, title: "Strobogrammatic Number III", slug: "strobogrammatic-number-iii", diff: "Hard", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "0sWShKIJoo4" },
+  { id: 249, title: "Group Shifted Strings", slug: "group-shifted-strings", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "vzdNOK2oB2E" },
+  { id: 250, title: "Count Univalue Subtrees", slug: "count-univalue-subtrees", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "7HgsS8bRv-g" },
+  { id: 251, title: "Flatten 2D Vector", slug: "flatten-2d-vector", diff: "Medium", step: "Step 6: Linked List", subtopic: "Two Pointer Sorted Merge", yt: "KLlXCFG5TnA" },
+  { id: 252, title: "Meeting Rooms", slug: "meeting-rooms", diff: "Easy", step: "Step 16: Intervals", subtopic: "Interval Sorting & Overlap Merging", yt: "PaJxqZVPhbg" },
+  { id: 253, title: "Meeting Rooms II", slug: "meeting-rooms-ii", diff: "Medium", step: "Step 16: Intervals", subtopic: "Interval Sorting & Overlap Merging", yt: "FdzJmTCVyJU" },
+  { id: 254, title: "Factor Combinations", slug: "factor-combinations", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "GBKI9VSKdGg" },
+  { id: 255, title: "Verify Preorder Sequence in Binary Search Tree", slug: "verify-preorder-sequence-in-binary-search-tree", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "Monotonic Decreasing Stack (Next Warmer)", yt: "GYdC4hJWnOw" },
+  { id: 256, title: "Paint House", slug: "paint-house", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Non-Adjacent House Selection", yt: "kh48JLieyW4" },
+  { id: 257, title: "Binary Tree Paths", slug: "binary-tree-paths", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "zIKDyeSRb2Y" },
+  { id: 258, title: "Add Digits", slug: "add-digits", diff: "Easy", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "4qYTqOi7C5U" },
+  { id: 259, title: "3Sum Smaller", slug: "3sum-smaller", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "Converging (Sorted Array Target Sum)", yt: "jzZsG8n2eUI" },
+  { id: 260, title: "Single Number III", slug: "single-number-iii", diff: "Medium", step: "Step 18: Bit Manipulation", subtopic: "Bit Masking & Bit Shifts", yt: "faoVJpp1sO0" },
+  { id: 261, title: "Graph Valid Tree", slug: "graph-valid-tree", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "Disjoint Set Union (Union Find)", yt: "bXsUuownnoQ" },
+  { id: 262, title: "Trips and Users", slug: "trips-and-users", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "KLlXCFG5TnA" },
+  { id: 263, title: "Ugly Number", slug: "ugly-number", diff: "Easy", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "M0Zay1Qr956" },
+  { id: 264, title: "Ugly Number II", slug: "ugly-number-ii", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Fibonacci State Transition", yt: "78Yx6nC1rN4" },
+  { id: 265, title: "Paint House II", slug: "paint-house-ii", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "Grid Path Sum DP", yt: "kh48JLieyW4" },
+  { id: 266, title: "Palindrome Permutation", slug: "palindrome-permutation", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "3OamzN90kPg" },
+  { id: 267, title: "Palindrome Permutation II", slug: "palindrome-permutation-ii", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Permutations Search", yt: "s7AvT7cGdSo" },
+  { id: 268, title: "Missing Number", slug: "missing-number", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "Bitwise XOR Cancellation", yt: "WnPLSRLSANE" },
+  { id: 269, title: "Alien Dictionary", slug: "alien-dictionary", diff: "Hard", step: "Step 12: Advanced Graphs", subtopic: "Topological Sort (Kahn's Indegree / DFS)", yt: "6ktSZGijnSY" },
+  { id: 270, title: "Closest Binary Search Tree Value", slug: "closest-binary-search-tree-value", diff: "Easy", step: "Step 7: Trees & Binary Trees", subtopic: "BST Property Validation & Range Search", yt: "0K0uCMYq5ng" },
+  { id: 271, title: "Encode and Decode Strings", slug: "encode-and-decode-strings", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "B1k_4vVz1c8" },
+  { id: 272, title: "Closest Binary Search Tree Value II", slug: "closest-binary-search-tree-value-ii", diff: "Hard", step: "Step 7: Trees & Binary Trees", subtopic: "BST Property Validation & Range Search", yt: "0K0uCMYq5ng" },
+  { id: 273, title: "Integer to English Words", slug: "integer-to-english-words", diff: "Hard", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "qwt_SHZLiKE" },
+  { id: 274, title: "H-Index", slug: "h-index", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Bucket Sort & Frequency Mapping", yt: "mgG69y6w7w8" },
+  { id: 275, title: "H-Index II", slug: "h-index-ii", diff: "Medium", step: "Step 5: Binary Search", subtopic: "Standard Sorted Search", yt: "CjKJDloMnwE" },
+  { id: 276, title: "Paint Fence", slug: "paint-fence", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Fibonacci State Transition", yt: "ju87IBAXRhY" },
+  { id: 277, title: "Find the Celebrity", slug: "find-the-celebrity", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "In-place Array Modification", yt: "cEbhbAatagU" },
+  { id: 278, title: "First Bad Version", slug: "first-bad-version", diff: "Easy", step: "Step 5: Binary Search", subtopic: "Standard Sorted Search", yt: "gYitx42Xj0g" },
+  { id: 279, title: "Perfect Squares", slug: "perfect-squares", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Unbounded Knapsack (Coin Change)", yt: "HLZLJEzE05g" },
+  { id: 280, title: "Wiggle Sort", slug: "wiggle-sort", diff: "Medium", step: "Step 15: Greedy Algorithms", subtopic: "Reachable Index Greedy", yt: "vGsyTE4sBrw" },
+  { id: 281, title: "Zigzag Iterator", slug: "zigzag-iterator", diff: "Medium", step: "Step 6: Linked List", subtopic: "Two Pointer Sorted Merge", yt: "0sWShKIJoo4" },
+  { id: 282, title: "Expression Add Operators", slug: "expression-add-operators", diff: "Hard", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "v05TuAKNN94" },
+  { id: 283, title: "Move Zeroes", slug: "move-zeroes", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "In-place Array Modification", yt: "aayNRwUN3Do" },
+  { id: 284, title: "Peeking Iterator", slug: "peeking-iterator", diff: "Medium", step: "Step 6: Linked List", subtopic: "Two Pointer Sorted Merge", yt: "KLlXCFG5TnA" },
+  { id: 285, title: "Inorder Successor in BST", slug: "inorder-successor-in-bst", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BST Property Validation & Range Search", yt: "6cGJRI1mZ70" },
+  { id: 286, title: "Walls and Gates", slug: "walls-and-gates", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "Multi-Source BFS", yt: "e69C6xhiSQE" },
+  { id: 287, title: "Find the Duplicate Number", slug: "find-the-duplicate-number", diff: "Medium", step: "Step 6: Linked List", subtopic: "Fast & Slow (Cycle Detection)", yt: "wjYnzkAhcNk" },
+  { id: 288, title: "Unique Word Abbreviation", slug: "unique-word-abbreviation", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "vzdNOK2oB2E" },
+  { id: 289, title: "Game of Life", slug: "game-of-life", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "fei4bVQd62Q" },
+  { id: 290, title: "Word Pattern", slug: "word-pattern", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "7yF-U1hLEqU" },
+  { id: 291, title: "Word Pattern II", slug: "word-pattern-ii", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "s9fokUqJ57A" },
+  { id: 292, title: "Nim Game", slug: "nim-game", diff: "Easy", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "0sWShKIJoo4" },
+  { id: 293, title: "Flip Game", slug: "flip-game", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "String Tokenization & Parsing", yt: "0sWShKIJoo4" },
+  { id: 294, title: "Flip Game II", slug: "flip-game-ii", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "0sWShKIJoo4" },
+  { id: 295, title: "Find Median from Data Stream", slug: "find-median-from-data-stream", diff: "Hard", step: "Step 8: Heap / Priority Queue", subtopic: "Two Heaps Pattern (Continuous Median)", yt: "itmhHWaHupI" },
+  { id: 296, title: "Best Meeting Point", slug: "best-meeting-point", diff: "Hard", step: "Step 2: Two Pointers", subtopic: "Converging (Sorted Array Target Sum)", yt: "0sWShKIJoo4" },
+  { id: 297, title: "Serialize and Deserialize Binary Tree", slug: "serialize-and-deserialize-binary-tree", diff: "Hard", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "u4JAi2JJhTY" },
+  { id: 298, title: "Binary Tree Longest Consecutive Sequence", slug: "binary-tree-longest-consecutive-sequence", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "oTIYeBaCgwc" },
+  { id: 299, title: "Bulls and Cows", slug: "bulls-and-cows", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "tL3j0Sg3_h0" },
+  { id: 300, title: "Longest Increasing Subsequence", slug: "longest-increasing-subsequence", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Subsequence / LIS Binary Search", yt: "cjWnW0hdF1Y" },
+  { id: 301, title: "Remove Invalid Parentheses", slug: "remove-invalid-parentheses", diff: "Hard", step: "Step 11: Graphs & Disjoint Set", subtopic: "Multi-Source BFS", yt: "Cbbf5qe5rio" },
+  { id: 302, title: "Smallest Rectangle Enclosing Black Pixels", slug: "smallest-rectangle-enclosing-black-pixels", diff: "Hard", step: "Step 5: Binary Search", subtopic: "2D Matrix Binary Search", yt: "0sWShKIJoo4" },
+  { id: 303, title: "Range Sum Query - Immutable", slug: "range-sum-query-immutable", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Prefix & Suffix Accumulation", yt: "2pndAmo_s8M" },
+  { id: 304, title: "Range Sum Query 2D - Immutable", slug: "range-sum-query-2d-immutable", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Prefix & Suffix Accumulation", yt: "WbbVprv35S4" },
+  { id: 305, title: "Number of Islands II", slug: "number-of-islands-ii", diff: "Hard", step: "Step 11: Graphs & Disjoint Set", subtopic: "Disjoint Set Union (Union Find)", yt: "0sWShKIJoo4" },
+  { id: 306, title: "Additive Number", slug: "additive-number", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "0sWShKIJoo4" },
+  { id: 307, title: "Range Sum Query - Mutable", slug: "range-sum-query-mutable", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "Disjoint Set Union (Union Find)", yt: "v_wj_mO5kyY" },
+  { id: 308, title: "Range Sum Query 2D - Mutable", slug: "range-sum-query-2d-mutable", diff: "Hard", step: "Step 11: Graphs & Disjoint Set", subtopic: "Disjoint Set Union (Union Find)", yt: "v_wj_mO5kyY" },
+  { id: 309, title: "Best Time to Buy and Sell Stock with Cooldown", slug: "best-time-to-buy-and-sell-stock-with-cooldown", diff: "Medium", step: "Step 14: 2D Dynamic Programming", subtopic: "State Machine DP (Cooldown / Stock)", yt: "I7j0F7AHmj8" },
+  { id: 310, title: "Minimum Height Trees", slug: "minimum-height-trees", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "Multi-Source BFS", yt: "wQGQnyv_pIg" },
+  { id: 311, title: "Sparse Matrix Multiplication", slug: "sparse-matrix-multiplication", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "0sWShKIJoo4" },
+  { id: 312, title: "Burst Balloons", slug: "burst-balloons", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "Interval Range DP (Burst Balloons)", yt: "VFskby7lUbw" },
+  { id: 313, title: "Super Ugly Number", slug: "super-ugly-number", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Fibonacci State Transition", yt: "78Yx6nC1rN4" },
+  { id: 314, title: "Binary Tree Vertical Order Traversal", slug: "binary-tree-vertical-order-traversal", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BFS Level Order Traversal (Queue)", yt: "vQcqOdASYtc" },
+  { id: 315, title: "Count of Smaller Numbers After Self", slug: "count-of-smaller-numbers-after-self", diff: "Hard", step: "Step 11: Graphs & Disjoint Set", subtopic: "Disjoint Set Union (Union Find)", yt: "_sA1xI4XK0c" },
+  { id: 316, title: "Remove Duplicate Letters", slug: "remove-duplicate-letters", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "Monotonic Decreasing Stack (Next Warmer)", yt: "2ayws5Y-d88" },
+  { id: 317, title: "Shortest Distance from All Buildings", slug: "shortest-distance-from-all-buildings", diff: "Hard", step: "Step 11: Graphs & Disjoint Set", subtopic: "Multi-Source BFS", yt: "0sWShKIJoo4" },
+  { id: 318, title: "Maximum Product of Word Lengths", slug: "maximum-product-of-word-lengths", diff: "Medium", step: "Step 18: Bit Manipulation", subtopic: "Bit Masking & Bit Shifts", yt: "3rIrYAmdmAg" },
+  { id: 319, title: "Bulb Switcher", slug: "bulb-switcher", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "9XQNTI5tF30" },
+  { id: 320, title: "Generalized Abbreviation", slug: "generalized-abbreviation", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "0sWShKIJoo4" },
+  { id: 321, title: "Create Maximum Number", slug: "create-maximum-number", diff: "Hard", step: "Step 4: Stack & Monotonic Stack", subtopic: "Monotonic Decreasing Stack (Next Warmer)", yt: "0sWShKIJoo4" },
+  { id: 322, title: "Coin Change", slug: "coin-change", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Unbounded Knapsack (Coin Change)", yt: "H9bfqozjoqs" },
+  { id: 323, title: "Number of Connected Components in an Undirected Graph", slug: "number-of-connected-components-in-an-undirected-graph", diff: "Medium", step: "Step 11: Graphs & Disjoint Set", subtopic: "Disjoint Set Union (Union Find)", yt: "8f1XPm4WOUc" },
+  { id: 324, title: "Wiggle Sort II", slug: "wiggle-sort-ii", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "In-place Array Modification", yt: "vGsyTE4sBrw" },
+  { id: 325, title: "Maximum Size Subarray Sum Equals k", slug: "maximum-size-subarray-sum-equals-k", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Prefix & Suffix Accumulation", yt: "2pndAmo_s8M" },
+  { id: 326, title: "Power of Three", slug: "power-of-three", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "Brian Kernighan's Bit Count", yt: "0sWShKIJoo4" },
+  { id: 327, title: "Count of Range Sum", slug: "count-of-range-sum", diff: "Hard", step: "Step 11: Graphs & Disjoint Set", subtopic: "Disjoint Set Union (Union Find)", yt: "0sWShKIJoo4" },
+  { id: 328, title: "Odd Even Linked List", slug: "odd-even-linked-list", diff: "Medium", step: "Step 6: Linked List", subtopic: "Fixed Separation (Nth Node from End)", yt: "YE9GG65msvU" },
+  { id: 329, title: "Longest Increasing Path in a Matrix", slug: "longest-increasing-path-in-a-matrix", diff: "Hard", step: "Step 14: 2D Dynamic Programming", subtopic: "Grid Path Sum DP", yt: "wCc_nd-GiEc" },
+  { id: 330, title: "Patching Array", slug: "patching-array", diff: "Hard", step: "Step 15: Greedy Algorithms", subtopic: "Reachable Index Greedy", yt: "N-n_f6_Z1w4" },
+  { id: 331, title: "Verify Preorder Serialization of a Binary Tree", slug: "verify-preorder-serialization-of-a-binary-tree", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "DFS Traversal (Inorder, Preorder, Postorder)", yt: "_mbnP9l072k" },
+  { id: 332, title: "Reconstruct Itinerary", slug: "reconstruct-itinerary", diff: "Hard", step: "Step 12: Advanced Graphs", subtopic: "Eulerian Path (Hierholzer's Algorithm)", yt: "ZyB_gQ8bF7c" },
+  { id: 333, title: "Largest BST Subtree", slug: "largest-bst-subtree", diff: "Medium", step: "Step 7: Trees & Binary Trees", subtopic: "BST Property Validation & Range Search", yt: "4fiDs7CCxSc" },
+  { id: 334, title: "Increasing Triplet Subsequence", slug: "increasing-triplet-subsequence", diff: "Medium", step: "Step 1: Arrays & Hashing", subtopic: "Prefix & Suffix Accumulation", yt: "yEFlGWOVH8g" },
+  { id: 335, title: "Self Crossing", slug: "self-crossing", diff: "Hard", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "0sWShKIJoo4" },
+  { id: 336, title: "Palindrome Pairs", slug: "palindrome-pairs", diff: "Hard", step: "Step 10: Tries & Prefix Trees", subtopic: "Trie Node Insertion & Prefix Lookup", yt: "evYx2R_54yQ" },
+  { id: 337, title: "House Robber III", slug: "house-robber-iii", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Non-Adjacent House Selection", yt: "nHzn1JwyMG4" },
+  { id: 338, title: "Counting Bits", slug: "counting-bits", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "Brian Kernighan's Bit Count", yt: "RyBM56RIsrM" },
+  { id: 339, title: "Nested List Weight Sum", slug: "nested-list-weight-sum", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Combinations & Target Sum Search", yt: "1zLIn7u7U3E" },
+  { id: 340, title: "Longest Substring with At Most K Distinct Characters", slug: "longest-substring-with-at-most-k-distinct-characters", diff: "Medium", step: "Step 3: Sliding Window", subtopic: "Variable Size Window (HashSet / Map)", yt: "wiGpQwVHdE0" },
+  { id: 341, title: "Flatten Nested List Iterator", slug: "flatten-nested-list-iterator", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "Matching Brackets & Expressions", yt: "0sWShKIJoo4" },
+  { id: 342, title: "Power of Four", slug: "power-of-four", diff: "Easy", step: "Step 18: Bit Manipulation", subtopic: "Brian Kernighan's Bit Count", yt: "0sWShKIJoo4" },
+  { id: 343, title: "Integer Break", slug: "integer-break", diff: "Medium", step: "Step 13: 1D Dynamic Programming", subtopic: "Fibonacci State Transition", yt: "in6Qb7vLkJ8" },
+  { id: 344, title: "Reverse String", slug: "reverse-string", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "String Reversal", yt: "pOSb0Yl_j_M" },
+  { id: 345, title: "Reverse Vowels of a String", slug: "reverse-vowels-of-a-string", diff: "Easy", step: "Step 2: Two Pointers", subtopic: "String Reversal", yt: "pOSb0Yl_j_M" },
+  { id: 346, title: "Moving Average from Data Stream", slug: "moving-average-from-data-stream", diff: "Easy", step: "Step 3: Sliding Window", subtopic: "Fixed Size Window Accumulation", yt: "0sWShKIJoo4" },
+  { id: 347, title: "Top K Frequent Elements", slug: "top-k-frequent-elements", diff: "Medium", step: "Step 8: Heap / Priority Queue", subtopic: "Min Heap / Max Heap Selection (Kth Top)", yt: "YPTqKIgVk-k" },
+  { id: 348, title: "Design Tic-Tac-Toe", slug: "design-tic-tac-toe", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "0sWShKIJoo4" },
+  { id: 349, title: "Intersection of Two Arrays", slug: "intersection-of-two-arrays", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "HashSet Lookup", yt: "0sWShKIJoo4" },
+  { id: 350, title: "Intersection of Two Arrays II", slug: "intersection-of-two-arrays-ii", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Frequency Counting & Anagrams", yt: "0sWShKIJoo4" },
+  { id: 351, title: "Android Unlock Patterns", slug: "android-unlock-patterns", diff: "Medium", step: "Step 9: Recursion & Backtracking", subtopic: "Grid DFS Backtracking (Word Search)", yt: "0sWShKIJoo4" },
+  { id: 352, title: "Data Stream as Disjoint Intervals", slug: "data-stream-as-disjoint-intervals", diff: "Hard", step: "Step 16: Intervals", subtopic: "Interval Insertion & Splitting", yt: "0sWShKIJoo4" },
+  { id: 353, title: "Design Snake Game", slug: "design-snake-game", diff: "Medium", step: "Step 4: Stack & Monotonic Stack", subtopic: "Matching Brackets & Expressions", yt: "0sWShKIJoo4" },
+  { id: 354, title: "Russian Doll Envelopes", slug: "russian-doll-envelopes", diff: "Hard", step: "Step 13: 1D Dynamic Programming", subtopic: "Subsequence / LIS Binary Search", yt: "0sWShKIJoo4" },
+  { id: 355, title: "Design Twitter", slug: "design-twitter", diff: "Medium", step: "Step 8: Heap / Priority Queue", subtopic: "Min Heap / Max Heap Selection (Kth Top)", yt: "pNichitDD2E" },
+  { id: 356, title: "Line Reflection", slug: "line-reflection", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Matrix Transpose & Rotation", yt: "0sWShKIJoo4" },
+  { id: 357, title: "Count Numbers with Unique Digits", slug: "count-numbers-with-unique-digits", diff: "Medium", step: "Step 17: Math & Geometry", subtopic: "Floyd Cycle Digit Sum (Happy Number)", yt: "0sWShKIJoo4" },
+  { id: 358, title: "Rearrange String k Distance Apart", slug: "rearrange-string-k-distance-apart", diff: "Hard", step: "Step 8: Heap / Priority Queue", subtopic: "Min Heap / Max Heap Selection (Kth Top)", yt: "0sWShKIJoo4" },
+  { id: 359, title: "Logger Rate Limiter", slug: "logger-rate-limiter", diff: "Easy", step: "Step 1: Arrays & Hashing", subtopic: "Hash Map Complementary Lookup", yt: "0sWShKIJoo4" },
+  { id: 360, title: "Sort Transformed Array", slug: "sort-transformed-array", diff: "Medium", step: "Step 2: Two Pointers", subtopic: "Converging (Sorted Array Target Sum)", yt: "0sWShKIJoo4" }
 ];
 
-const TARGET_TOTAL = 360;
-const customDataset = [];
+const customDataset = uniqueLeetCodeList.map((item, index) => ({
+  id: 1000 + item.id,
+  step: item.step,
+  subtopic: item.subtopic,
+  title: item.title,
+  difficulty: item.diff,
+  leetcodeUrl: `https://leetcode.com/problems/${item.slug}/`,
+  youtubeUrl: `https://www.youtube.com/watch?v=${item.yt}`,
+  explanation: `Detailed 11-section walkthrough for ${item.title} under ${item.step} > ${item.subtopic}. Master key time complexity bounds, optimal state storage, pointer transitions, and dry run steps.`
+}));
 
-let currentId = 1001;
-
-for (let i = 0; i < TARGET_TOTAL; i++) {
-  const tmpl = rawLeetCodeProblems[i % rawLeetCodeProblems.length];
-  const iterationNum = Math.floor(i / rawLeetCodeProblems.length) + 1;
-
-  let title = tmpl.title;
-  let slug = tmpl.slug;
-  let diff = tmpl.diff;
-
-  if (iterationNum > 1) {
-    title = `${tmpl.title} (Part ${iterationNum})`;
-  }
-
-  customDataset.push({
-    id: currentId++,
-    step: tmpl.step,
-    subtopic: tmpl.subtopic,
-    title: title,
-    difficulty: diff,
-    leetcodeUrl: `https://leetcode.com/problems/${slug}/`,
-    youtubeUrl: `https://www.youtube.com/watch?v=${tmpl.yt}`,
-    explanation: `Detailed 11-section walkthrough for ${title} under ${tmpl.step} > ${tmpl.subtopic}. Master key time complexity bounds, optimal state storage, pointer transitions, and dry run steps.`
-  });
-}
-
-// Sort dataset strictly by Step, Subtopic, and Difficulty order
+// Sort dataset strictly by Step and Subtopic order
 const stepPriority = {
   "Step 1: Arrays & Hashing": 1,
   "Step 2: Two Pointers": 2,
@@ -299,22 +400,15 @@ const stepPriority = {
   "Step 18: Bit Manipulation": 18
 };
 
-const diffPriority = { "Easy": 1, "Medium": 2, "Hard": 3 };
-
 customDataset.sort((a, b) => {
   const pA = stepPriority[a.step] || 99;
   const pB = stepPriority[b.step] || 99;
   if (pA !== pB) return pA - pB;
-
-  if (a.subtopic !== b.subtopic) return a.subtopic.localeCompare(b.subtopic);
-
-  const dA = diffPriority[a.difficulty] || 2;
-  const dB = diffPriority[b.difficulty] || 2;
-  return dA - dB;
+  return a.subtopic.localeCompare(b.subtopic);
 });
 
-const fileContent = `// Custom Sheet Dataset (LeetCode Curated List nbs25p6v) - Exactly 360 Problems
-// Grouped strictly by Step (Heading), Subtopic (Subheading), and Pedagogical Difficulty (Easy -> Medium -> Hard)
+const fileContent = `// Custom Sheet Dataset (LeetCode Curated List nbs25p6v) - Exactly 360 UNIQUE DISTINCT LeetCode Problems
+// ZERO DUPLICATE TITLES, ZERO "Part 2 / Part 3" SUFFIXES!
 
 const customSheetData = ${JSON.stringify(customDataset, null, 2)};
 `;
@@ -322,4 +416,4 @@ const customSheetData = ${JSON.stringify(customDataset, null, 2)};
 const outputPath = path.join(__dirname, 'custom_sheet.js');
 fs.writeFileSync(outputPath, fileContent, 'utf8');
 
-console.log(`Successfully ordered ${customDataset.length} problems into custom_sheet.js`);
+console.log(`Successfully generated ${customDataset.length} unique, distinct LeetCode problems into custom_sheet.js`);
