@@ -13,7 +13,53 @@
     "2026-11-16"
   ],
   "oneProblemRanges": [
-    { "start": "2026-11-19", "end": "2026-11-24" },
-    { "start": "2026-11-27", "end": "2026-12-15" }
+    {
+      "start": "2026-11-19",
+      "end": "2026-11-24"
+    },
+    {
+      "start": "2026-11-27",
+      "end": "2026-12-15"
+    }
+  ],
+  "striverTopicOrder": [
+    "Step 1: Learn the Basics",
+    "Step 2: Learn Important Sorting Techniques",
+    "Step 3: Solve Problems on Arrays",
+    "Step 4: Binary Search",
+    "Step 5: Strings",
+    "Step 6: Learn LinkedList",
+    "Step 7: Recursion & Backtracking",
+    "Step 8: Bit Manipulation",
+    "Step 9: Stack and Queues",
+    "Step 10: Sliding Window & Two Pointers",
+    "Step 11: Heaps",
+    "Step 12: Greedy Algorithms",
+    "Step 13: Binary Trees",
+    "Step 14: Binary Search Trees",
+    "Step 15: Graphs",
+    "Step 16: Dynamic Programming",
+    "Step 17: Tries",
+    "Step 18: Advanced Strings"
+  ],
+  "customTopicOrder": [
+    "Step 2: Two Pointers",
+    "Step 3: Sliding Window",
+    "Step 4: Stack & Monotonic Stack",
+    "Step 1: Arrays & Hashing",
+    "Step 5: Binary Search",
+    "Step 6: Linked List",
+    "Step 7: Trees & Binary Trees",
+    "Step 8: Heap / Priority Queue",
+    "Step 9: Recursion & Backtracking",
+    "Step 10: Tries & Prefix Trees",
+    "Step 11: Graphs & Disjoint Set",
+    "Step 12: Advanced Graphs",
+    "Step 13: 1D Dynamic Programming",
+    "Step 15: Greedy Algorithms",
+    "Step 16: Intervals",
+    "Step 17: Math & Geometry",
+    "Step 18: Bit Manipulation",
+    "Step 14: 2D Dynamic Programming"
   ]
 }

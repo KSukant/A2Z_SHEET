@@ -116,6 +116,36 @@ function showNotificationToast(message) {
   }, 4000);
 }
 
+function initTopicOrders() {
+  const currentStriverTopics = [...new Set(striverSheetData.map(item => item.step))];
+  if (!userConfig.striverTopicOrder || !Array.isArray(userConfig.striverTopicOrder)) {
+    userConfig.striverTopicOrder = currentStriverTopics;
+  } else {
+    // Add any missing topics
+    currentStriverTopics.forEach(t => {
+      if (!userConfig.striverTopicOrder.includes(t)) {
+        userConfig.striverTopicOrder.push(t);
+      }
+    });
+    // Remove any topics that no longer exist
+    userConfig.striverTopicOrder = userConfig.striverTopicOrder.filter(t => currentStriverTopics.includes(t));
+  }
+
+  const currentCustomTopics = [...new Set(customSheetData.map(item => item.step))];
+  if (!userConfig.customTopicOrder || !Array.isArray(userConfig.customTopicOrder)) {
+    userConfig.customTopicOrder = currentCustomTopics;
+  } else {
+    // Add any missing topics
+    currentCustomTopics.forEach(t => {
+      if (!userConfig.customTopicOrder.includes(t)) {
+        userConfig.customTopicOrder.push(t);
+      }
+    });
+    // Remove any topics that no longer exist
+    userConfig.customTopicOrder = userConfig.customTopicOrder.filter(t => currentCustomTopics.includes(t));
+  }
+}
+
 function getActiveDataset() {
   return currentSheetMode === 'STRIVER' ? striverSheetData : customSheetData;
 }
@@ -127,6 +157,7 @@ function getActiveCompletedSet() {
 // Initialization
 document.addEventListener('DOMContentLoaded', async () => {
   await loadDataFromBackendOrLocal();
+  initTopicOrders();
   setupUI();
   populateTopicFilter();
   recalculateTimetable();
@@ -380,6 +411,73 @@ function setupUI() {
       if (e.target.id === 'explanationModal') closeModal();
     });
   }
+
+  // Topic Reordering Modal listeners
+  const btnTopicOrder = document.getElementById('btnTopicOrder');
+  if (btnTopicOrder) {
+    btnTopicOrder.addEventListener('click', openTopicOrderModal);
+  }
+
+  const closeTopicOrderMod = document.getElementById('btnCloseTopicOrderModal');
+  if (closeTopicOrderMod) {
+    closeTopicOrderMod.addEventListener('click', closeTopicOrderModal);
+  }
+
+  const topicOrderMod = document.getElementById('topicOrderModal');
+  if (topicOrderMod) {
+    topicOrderMod.addEventListener('click', (e) => {
+      if (e.target.id === 'topicOrderModal') closeTopicOrderModal();
+    });
+  }
+
+  const btnApplyTopicOrder = document.getElementById('btnApplyTopicOrder');
+  if (btnApplyTopicOrder) {
+    btnApplyTopicOrder.addEventListener('click', applyTopicOrder);
+  }
+
+  const btnResetTopicOrder = document.getElementById('btnResetTopicOrder');
+  if (btnResetTopicOrder) {
+    btnResetTopicOrder.addEventListener('click', resetTopicOrder);
+  }
+
+  // Resume Modal listeners
+  const btnOpenResume = document.getElementById('btnOpenResume');
+  if (btnOpenResume) {
+    btnOpenResume.addEventListener('click', openResumeModal);
+  }
+
+  const btnCloseResume = document.getElementById('btnCloseResumeModal');
+  if (btnCloseResume) {
+    btnCloseResume.addEventListener('click', closeResumeModal);
+  }
+
+  const resumeMod = document.getElementById('resumeModal');
+  if (resumeMod) {
+    resumeMod.addEventListener('click', (e) => {
+      if (e.target.id === 'resumeModal') closeResumeModal();
+    });
+  }
+
+  const btnResumeInteractive = document.getElementById('btnResumeInteractive');
+  const btnResumeImage = document.getElementById('btnResumeImage');
+  const containerInteractive = document.getElementById('resumeInteractiveContainer');
+  const containerImage = document.getElementById('resumeImageContainer');
+
+  if (btnResumeInteractive && btnResumeImage) {
+    btnResumeInteractive.addEventListener('click', () => {
+      btnResumeInteractive.className = 'cyber-btn btn-neon';
+      btnResumeImage.className = 'cyber-btn btn-glass';
+      containerInteractive.classList.remove('hidden');
+      containerImage.classList.add('hidden');
+    });
+
+    btnResumeImage.addEventListener('click', () => {
+      btnResumeImage.className = 'cyber-btn btn-neon';
+      btnResumeInteractive.className = 'cyber-btn btn-glass';
+      containerImage.classList.remove('hidden');
+      containerInteractive.classList.add('hidden');
+    });
+  }
 }
 
 // Parse inputs from config drawer form
@@ -400,16 +498,17 @@ function populateTopicFilter() {
   const select = document.getElementById('topicFilter');
   if (!select) return;
 
-  const activeData = getActiveDataset();
-  const steps = [...new Set(activeData.map(item => item.step))];
+  const topicOrder = currentSheetMode === 'STRIVER' ? userConfig.striverTopicOrder : userConfig.customTopicOrder;
   select.innerHTML = '<option value="ALL">All Steps / Topics</option>';
   
-  steps.forEach(stepName => {
-    const opt = document.createElement('option');
-    opt.value = stepName;
-    opt.textContent = stepName;
-    select.appendChild(opt);
-  });
+  if (topicOrder && Array.isArray(topicOrder)) {
+    topicOrder.forEach(stepName => {
+      const opt = document.createElement('option');
+      opt.value = stepName;
+      opt.textContent = stepName;
+      select.appendChild(opt);
+    });
+  }
 
   populateSubtopicFilter('ALL');
 }
@@ -440,6 +539,23 @@ function populateSubtopicFilter(selectedTopic) {
 function recalculateTimetable() {
   const activeData = getActiveDataset();
   const sortedProblems = [...activeData];
+
+  const topicOrder = currentSheetMode === 'STRIVER' ? userConfig.striverTopicOrder : userConfig.customTopicOrder;
+  if (topicOrder && Array.isArray(topicOrder) && topicOrder.length > 0) {
+    const topicIndices = {};
+    topicOrder.forEach((t, i) => {
+      topicIndices[t] = i;
+    });
+
+    sortedProblems.sort((a, b) => {
+      const idxA = topicIndices[a.step] !== undefined ? topicIndices[a.step] : 9999;
+      const idxB = topicIndices[b.step] !== undefined ? topicIndices[b.step] : 9999;
+      if (idxA !== idxB) {
+        return idxA - idxB;
+      }
+      return activeData.indexOf(a) - activeData.indexOf(b);
+    });
+  }
 
   let currDate = new Date(userConfig.startDate || '2026-08-26');
   let problemIdx = 0;
@@ -714,6 +830,10 @@ function renderTopicMode(container, matchesFilter) {
   });
 
   const stepKeys = Object.keys(stepsMap);
+  const topicOrder = currentSheetMode === 'STRIVER' ? userConfig.striverTopicOrder : userConfig.customTopicOrder;
+  if (topicOrder && Array.isArray(topicOrder)) {
+    stepKeys.sort((a, b) => topicOrder.indexOf(a) - topicOrder.indexOf(b));
+  }
 
   if (stepKeys.length === 0) {
     container.innerHTML = `<div class="card-hud" style="padding: 2rem; text-align: center; color: var(--text-muted);">No problems match your current search/filter parameters.</div>`;
@@ -1006,4 +1126,176 @@ Output: Calculated optimal result satisfying algorithm constraints.</div>
 
 function closeModal() {
   document.getElementById('explanationModal').classList.add('hidden');
+}
+
+// TOPIC REORDERING OPERATIONS & MODAL CONTROLLERS
+let tempTopicOrder = [];
+
+function openTopicOrderModal() {
+  const currentTopics = currentSheetMode === 'STRIVER' ? userConfig.striverTopicOrder : userConfig.customTopicOrder;
+  tempTopicOrder = [...currentTopics];
+
+  const sheetNameEl = document.getElementById('topicOrderSheetName');
+  if (sheetNameEl) {
+    sheetNameEl.textContent = currentSheetMode === 'STRIVER' ? 'Striver A2Z Sheet' : 'My Custom Sheet';
+  }
+
+  renderTopicOrderList();
+  document.getElementById('topicOrderModal').classList.remove('hidden');
+}
+
+function closeTopicOrderModal() {
+  document.getElementById('topicOrderModal').classList.add('hidden');
+}
+
+function renderTopicOrderList() {
+  const container = document.getElementById('topicListContainer');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  tempTopicOrder.forEach((topic, idx) => {
+    const item = document.createElement('div');
+    item.className = 'topic-reorder-item';
+    item.setAttribute('draggable', 'true');
+    item.setAttribute('data-index', idx);
+
+    // Left section: drag handle and text label
+    const leftSec = document.createElement('div');
+    leftSec.className = 'topic-reorder-item-left';
+    leftSec.innerHTML = `
+      <i class="fa-solid fa-grip-vertical topic-drag-handle"></i>
+      <span class="topic-reorder-item-title">${topic}</span>
+    `;
+
+    // Right section: Move Up / Down button controls
+    const rightSec = document.createElement('div');
+    rightSec.className = 'topic-reorder-item-right';
+    
+    const upBtn = document.createElement('button');
+    upBtn.className = 'topic-reorder-btn';
+    upBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+    upBtn.disabled = idx === 0;
+    upBtn.title = "Move Up";
+    upBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      swapTopics(idx, idx - 1);
+    });
+
+    const downBtn = document.createElement('button');
+    downBtn.className = 'topic-reorder-btn';
+    downBtn.innerHTML = '<i class="fa-solid fa-arrow-down"></i>';
+    downBtn.disabled = idx === tempTopicOrder.length - 1;
+    downBtn.title = "Move Down";
+    downBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      swapTopics(idx, idx + 1);
+    });
+
+    rightSec.appendChild(upBtn);
+    rightSec.appendChild(downBtn);
+
+    item.appendChild(leftSec);
+    item.appendChild(rightSec);
+
+    // HTML5 drag and drop events
+    item.addEventListener('dragstart', handleDragStart);
+    item.addEventListener('dragover', handleDragOver);
+    item.addEventListener('dragenter', handleDragEnter);
+    item.addEventListener('dragleave', handleDragLeave);
+    item.addEventListener('dragend', handleDragEnd);
+    item.addEventListener('drop', handleDrop);
+
+    container.appendChild(item);
+  });
+}
+
+function swapTopics(idx1, idx2) {
+  const temp = tempTopicOrder[idx1];
+  tempTopicOrder[idx1] = tempTopicOrder[idx2];
+  tempTopicOrder[idx2] = temp;
+  renderTopicOrderList();
+}
+
+// Drag & Drop Handlers
+let dragSourceEl = null;
+
+function handleDragStart(e) {
+  this.classList.add('dragging');
+  dragSourceEl = this;
+  e.dataTransfer.effectAllowed = 'move';
+  // Standard drag behavior
+  e.dataTransfer.setData('text/plain', this.getAttribute('data-index'));
+}
+
+function handleDragOver(e) {
+  if (e.preventDefault) {
+    e.preventDefault();
+  }
+  return false;
+}
+
+function handleDragEnter(e) {
+  this.classList.add('over');
+}
+
+function handleDragLeave(e) {
+  this.classList.remove('over');
+}
+
+function handleDragEnd(e) {
+  this.classList.remove('dragging');
+  const items = document.querySelectorAll('.topic-reorder-item');
+  items.forEach(item => {
+    item.classList.remove('over');
+  });
+}
+
+function handleDrop(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  
+  if (dragSourceEl !== this) {
+    const fromIdx = parseInt(dragSourceEl.getAttribute('data-index'), 10);
+    const toIdx = parseInt(this.getAttribute('data-index'), 10);
+    
+    // Reorder tempTopicOrder array
+    const movedItem = tempTopicOrder.splice(fromIdx, 1)[0];
+    tempTopicOrder.splice(toIdx, 0, movedItem);
+    
+    renderTopicOrderList();
+  }
+  return false;
+}
+
+async function applyTopicOrder() {
+  if (currentSheetMode === 'STRIVER') {
+    userConfig.striverTopicOrder = [...tempTopicOrder];
+  } else {
+    userConfig.customTopicOrder = [...tempTopicOrder];
+  }
+
+  await saveConfigData();
+  populateTopicFilter();
+  recalculateTimetable();
+  render();
+  closeTopicOrderModal();
+  showNotificationToast("Topic order updated & timetable recalculated!");
+}
+
+async function resetTopicOrder() {
+  if (confirm("Reset topic order back to the default sequence?")) {
+    const dataset = getActiveDataset();
+    const defaultOrder = [...new Set(dataset.map(item => item.step))];
+    tempTopicOrder = [...defaultOrder];
+    renderTopicOrderList();
+  }
+}
+
+function openResumeModal() {
+  document.getElementById('resumeModal').classList.remove('hidden');
+}
+
+function closeResumeModal() {
+  document.getElementById('resumeModal').classList.add('hidden');
 }

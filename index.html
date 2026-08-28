@@ -23,17 +23,52 @@
     <!-- TOP CYBER HEADER NAV -->
     <header class="cyber-header card-hud">
       <div class="logo-area">
-        <div class="cyber-logo-icon">
-          <i class="fa-solid fa-microchip"></i>
+        <!-- PROPERLY PLACED SUKANT PROFILE PHOTO AVATAR (LINKED TO LEETCODE) -->
+        <a href="https://leetcode.com/u/SukantK/" target="_blank" class="sukant-avatar-box" title="View Sukant's LeetCode Profile (@SukantK)">
+          <img src="sukant.jpg" alt="Sukant" class="sukant-profile-img">
           <span class="pulse-ring"></span>
-        </div>
-        <div>
+          <span class="avatar-status-dot"></span>
+        </a>
+
+        <div class="brand-title-group">
+          <!-- SUKANT DSA FLIPPING LETTER BOXES NEXT TO THE IMAGE -->
+          <div class="sukant-dsa-header-row">
+            <div class="flip-letters-container">
+              <div class="flip-word">
+                <span class="flip-box" style="animation-delay: 0.1s">S</span>
+                <span class="flip-box" style="animation-delay: 0.2s">U</span>
+                <span class="flip-box" style="animation-delay: 0.3s">K</span>
+                <span class="flip-box" style="animation-delay: 0.4s">A</span>
+                <span class="flip-box" style="animation-delay: 0.5s">N</span>
+                <span class="flip-box" style="animation-delay: 0.6s">T</span>
+              </div>
+              <div class="flip-space"></div>
+              <div class="flip-word">
+                <span class="flip-box neon-cyan-box" style="animation-delay: 0.75s">D</span>
+                <span class="flip-box neon-purple-box" style="animation-delay: 0.9s">S</span>
+                <span class="flip-box neon-cyan-box" style="animation-delay: 1.05s">A</span>
+              </div>
+            </div>
+            <a href="https://leetcode.com/u/SukantK/" target="_blank" class="cyber-pill pill-amber" style="font-size: 0.72rem; padding: 3px 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" title="Open LeetCode Profile @SukantK">
+              <i class="fa-solid fa-code"></i> @SukantK <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.65rem;"></i>
+            </a>
+          </div>
+
           <h1 class="hud-title">CYBER<span class="neon-cyan">DSA</span> <span class="neon-purple">ENGINE</span></h1>
           <p class="hud-subtitle">Quantum Timetable Planner & Multi-Sheet Tracker</p>
         </div>
       </div>
 
       <div class="header-actions">
+        <!-- RESUME MODAL BUTTON -->
+        <button class="cyber-btn btn-neon" id="btnOpenResume" title="View Sukant K's Interactive Resume">
+          <i class="fa-solid fa-file-pdf"></i> <span>Resume</span>
+        </button>
+
+        <!-- LEETCODE PROFILE LINK BUTTON -->
+        <a href="https://leetcode.com/u/SukantK/" target="_blank" class="cyber-btn btn-leetcode-profile" title="Open Sukant's LeetCode Profile">
+          <i class="fa-solid fa-code"></i> <span>LeetCode Profile</span>
+        </a>
         <!-- UNDO ACTION BUTTON IN HEADER -->
         <button class="cyber-btn btn-undo" id="btnUndoHeader" title="Undo Last Action (Ctrl+Z)" disabled>
           <i class="fa-solid fa-rotate-left"></i> <span>Undo</span> <kbd>Ctrl+Z</kbd>
@@ -45,6 +80,10 @@
 
         <button class="cyber-btn btn-glass" id="btnExamConfig">
           <i class="fa-solid fa-sliders"></i> <span>Exam Rules</span>
+        </button>
+
+        <button class="cyber-btn btn-glass" id="btnTopicOrder">
+          <i class="fa-solid fa-sort"></i> <span>Reorder Topics</span>
         </button>
 
         <button class="cyber-btn btn-danger" id="btnResetProgress">
@@ -251,6 +290,191 @@
           <a id="modalYoutubeLink" href="#" target="_blank" class="cyber-btn btn-youtube">
             <i class="fa-brands fa-youtube"></i> Video Tutorial
           </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC REORDERING MODAL -->
+  <div class="modal-backdrop hidden" id="topicOrderModal">
+    <div class="modal-card card-hud modal-md">
+      <div class="modal-header">
+        <div>
+          <h3 class="hud-title"><i class="fa-solid fa-sort"></i> REORDER TOPICS</h3>
+          <div class="modal-breadcrumb">
+            Customize topic sequence for <span id="topicOrderSheetName" class="neon-cyan">Striver A2Z Sheet</span>
+          </div>
+        </div>
+        <button class="icon-btn" id="btnCloseTopicOrderModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-instruction-text">
+          Drag and drop topics or use the <i class="fa-solid fa-arrow-up"></i> / <i class="fa-solid fa-arrow-down"></i> buttons to change their order. The timetable dates will automatically recalculate.
+        </p>
+        <div class="topic-list-container" id="topicListContainer">
+          <!-- Rendered dynamically -->
+        </div>
+        <div class="modal-links" style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: flex-end;">
+          <button class="cyber-btn btn-glass" id="btnResetTopicOrder" style="border-color: rgba(255, 183, 3, 0.4); color: var(--neon-amber);">
+            <i class="fa-solid fa-rotate-left"></i> Reset Order
+          </button>
+          <button class="cyber-btn btn-neon" id="btnApplyTopicOrder">
+            <i class="fa-solid fa-check"></i> Apply & Recalculate
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUKANT K RESUME MODAL -->
+  <div class="modal-backdrop hidden" id="resumeModal">
+    <div class="modal-card card-hud modal-lg">
+      <div class="modal-header">
+        <div>
+          <h3 class="hud-title"><i class="fa-solid fa-address-card"></i> SUKANT K — RESUME</h3>
+          <div class="modal-breadcrumb" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+            <span><i class="fa-solid fa-phone"></i> +91-9496962393</span>
+            <span><i class="fa-solid fa-envelope"></i> <a href="mailto:sukantk555@gmail.com" style="color: var(--neon-cyan); text-decoration: none;">sukantk555@gmail.com</a></span>
+            <span><i class="fa-brands fa-linkedin"></i> <a href="https://linkedin.com/in/sukant-k" target="_blank" style="color: var(--neon-cyan); text-decoration: none;">linkedin.com/in/sukant-k</a></span>
+            <span><i class="fa-solid fa-code"></i> <a href="https://leetcode.com/u/SukantK/" target="_blank" style="color: var(--neon-amber); text-decoration: none;">leetcode.com/u/SukantK</a></span>
+          </div>
+        </div>
+        <button class="icon-btn" id="btnCloseResumeModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 1.2rem;">
+        <!-- VIEW TOGGLE BUTTONS -->
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(3,7,18,0.8); padding: 0.6rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--card-border);">
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="cyber-btn btn-neon" id="btnResumeInteractive" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;">
+              <i class="fa-solid fa-layer-group"></i> HUD View
+            </button>
+            <button class="cyber-btn btn-glass" id="btnResumeImage" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;">
+              <i class="fa-solid fa-image"></i> Original Image
+            </button>
+          </div>
+          <a href="resume_img.png" download="Sukant_K_Resume.png" class="cyber-btn btn-glass" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border-color: var(--neon-emerald); color: var(--neon-emerald);">
+            <i class="fa-solid fa-download"></i> Download Resume Image
+          </a>
+        </div>
+
+        <!-- CONTAINER 1: INTERACTIVE HUD RESUME VIEW -->
+        <div id="resumeInteractiveContainer" class="explanation-container">
+          <!-- EDUCATION -->
+          <div class="explanation-section">
+            <h3><i class="fa-solid fa-graduation-cap"></i> EDUCATION</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <div>
+                <div style="display: flex; justify-content: space-between; font-weight: 700; color: var(--neon-cyan);">
+                  <span>PSG Institute of Technology and Applied Research</span>
+                  <span>Coimbatore, India</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--text-muted);">
+                  <span>B.E. Computer Science Engineering — <strong>CGPA: 8.10</strong></span>
+                  <span>Sep. 2024 – May 2028</span>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-weight: 700; color: var(--neon-cyan);">
+                  <span>Chinmaya Vidyalaya - West Kochi</span>
+                  <span>Kochi, India</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--text-muted);">
+                  <span>Class 12th — <strong>95.2%</strong></span>
+                  <span>June 2022 – Mar. 2024</span>
+                </div>
+              </div>
+              <div>
+                <div style="display: flex; justify-content: space-between; font-weight: 700; color: var(--neon-cyan);">
+                  <span>Auxilium English Medium ICSE School</span>
+                  <span>Kochi, India</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.88rem; color: var(--text-muted);">
+                  <span>Class 10th — <strong>95.2%</strong></span>
+                  <span>June 2016 – Mar. 2022</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TECHNICAL SKILLS -->
+          <div class="explanation-section">
+            <h3><i class="fa-solid fa-laptop-code"></i> TECHNICAL SKILLS</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; font-size: 0.9rem;">
+              <div><strong style="color: var(--neon-cyan);">Languages:</strong> C, Java, Python</div>
+              <div><strong style="color: var(--neon-purple);">Technologies:</strong> React.js, HTML, CSS, Node.js, Express.js, MongoDB, PostgreSQL</div>
+              <div><strong style="color: var(--neon-emerald);">Tools:</strong> Git, GitHub</div>
+              <div><strong style="color: var(--neon-amber);">Core CS:</strong> Data Structures & Algorithms, Operating Systems, OOP, DBMS</div>
+            </div>
+          </div>
+
+          <!-- PROJECTS -->
+          <div class="explanation-section">
+            <h3><i class="fa-solid fa-diagram-project"></i> FEATURED PROJECTS</h3>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <div>
+                <h4 style="color: var(--neon-cyan); font-size: 0.95rem;">AyurTrace – Herbal Chain Traceability System <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">(React, Node/Express.js, PostgreSQL, JWT)</span></h4>
+                <ul style="padding-left: 1.2rem; font-size: 0.88rem; margin-top: 0.3rem; color: var(--text-muted);">
+                  <li>Developed a full-stack supply chain platform for end-to-end tracking of Ayurvedic herbs from harvest to consumer.</li>
+                  <li>Implemented role-based authentication, REST APIs, PostgreSQL database, batch provenance, quality compliance, and analytics dashboards.</li>
+                  <li>Designed a secure and scalable platform for complete herb traceability across the supply chain.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 style="color: var(--neon-cyan); font-size: 0.95rem;">Emergency Response Optimization System (EROS) <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">(React.js, Node.js, MongoDB)</span></h4>
+                <ul style="padding-left: 1.2rem; font-size: 0.88rem; margin-top: 0.3rem; color: var(--text-muted);">
+                  <li>Developed a full-stack emergency response platform for real-time ambulance dispatch and hospital allocation.</li>
+                  <li>Implemented GPS-based live tracking and route optimization using Google Maps API.</li>
+                  <li>Built secure role-based dashboards with JWT authentication and real-time communication using Socket.io.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 style="color: var(--neon-cyan); font-size: 0.95rem;">AI Image Authenticity Detection System <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">(Python, PyTorch, OpenCV, Flask)</span></h4>
+                <ul style="padding-left: 1.2rem; font-size: 0.88rem; margin-top: 0.3rem; color: var(--text-muted);">
+                  <li>Developed an AI model to classify uploaded images as real or AI-generated.</li>
+                  <li>Used EfficientNet-B0 for feature extraction and binary classification with confidence scoring.</li>
+                  <li>Designed for deployment in e-commerce, social media, and digital verification platforms.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- RESEARCH WORK -->
+          <div class="explanation-section">
+            <h3><i class="fa-solid fa-flask"></i> RESEARCH WORK</h3>
+            <div>
+              <h4 style="color: var(--neon-purple); font-size: 0.95rem;">Advanced Persistent Threat Detection using Graph Neural Networks and Explainable AI <span style="color: var(--neon-amber); font-size: 0.8rem;">(In Progress)</span></h4>
+              <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.3rem;">Focused on detecting Advanced Persistent Threats (APTs) using Graph Neural Networks (GNNs), Federated Learning and Explainable AI (XAI) to improve detection accuracy and model interpretability.</p>
+            </div>
+          </div>
+
+          <!-- CERTIFICATIONS & ACHIEVEMENTS -->
+          <div class="explanation-section" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+            <div>
+              <h4 style="color: var(--neon-emerald); font-size: 0.9rem; margin-bottom: 0.3rem;"><i class="fa-solid fa-award"></i> CERTIFICATIONS</h4>
+              <ul style="padding-left: 1.2rem; font-size: 0.85rem; color: var(--text-muted);">
+                <li><strong>Cybersecurity:</strong> NIT Trichy – REMARK Skill</li>
+                <li><strong>Web Development:</strong> Udemy</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 style="color: var(--neon-amber); font-size: 0.9rem; margin-bottom: 0.3rem;"><i class="fa-solid fa-trophy"></i> ACHIEVEMENTS & PARTICIPATION</h4>
+              <ul style="padding-left: 1.2rem; font-size: 0.85rem; color: var(--text-muted);">
+                <li><strong>Finalist:</strong> ITECH SUMMIT – YUKTAHA 2026</li>
+                <li><strong>Hackathons:</strong> ITECH IDEATHON 25, ITECH IDEATHON 26, SIH 2025 (Round 2)</li>
+                <li><strong>Competitions:</strong> THE UI STRIKES BACK</li>
+                <li><strong>Coding Profiles:</strong> Solved 175+ programs cumulatively | LeetCode: <code>sukantk</code></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTAINER 2: HIGH-RES IMAGE VIEW -->
+        <div id="resumeImageContainer" class="explanation-container hidden" style="text-align: center;">
+          <img src="resume_img.png" alt="Sukant K Resume" style="max-width: 100%; height: auto; border-radius: var(--radius-sm); border: 1px solid var(--card-border);">
         </div>
       </div>
     </div>
