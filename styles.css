@@ -1131,21 +1131,33 @@ body.cyber-theme {
   max-width: 600px;
 }
 
+/* GLOBAL IMAGE SAFEGUARD */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* SUKANT PROFILE AVATAR & FLIPPING LETTER BOX HUD DISPLAY */
 .sukant-avatar-box {
   position: relative;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  padding: 3px;
+  width: 64px !important;
+  height: 64px !important;
+  min-width: 64px !important;
+  min-height: 64px !important;
+  max-width: 64px !important;
+  max-height: 64px !important;
+  border-radius: 50% !important;
+  padding: 3px !important;
   background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
   box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-shrink: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   transition: var(--transition);
   cursor: pointer;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 
 .sukant-avatar-box:hover {
@@ -1154,11 +1166,15 @@ body.cyber-theme {
 }
 
 .sukant-profile-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #030712;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid #030712 !important;
+  display: block !important;
+  box-sizing: border-box !important;
 }
 
 .avatar-status-dot {
